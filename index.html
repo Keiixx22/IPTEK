@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0b">
+<title>Islam dan IPTEK | NEURAL LMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bk:#0b0b0b;--bk2:#111114;--bk3:#17171c;--yl:#fcee0a;--cy:#00f0ff;--mg:#ff2a6d;--gn:#39ff14;--rd:#ff003c;
+  --tx:#d9dde3;--mu:#8b93a1;--ln:rgba(252,238,10,.28);
+  --cut:14px;
+}
+*{box-sizing:border-box;border-radius:0}
+html,body{margin:0;background:var(--bk);color:var(--tx);min-height:100%}
+body{font:400 16px/1.65 "Share Tech Mono",ui-monospace,Menlo,Consolas,monospace;overflow-x:hidden}
+h1,h2,h3,h4,.orb{font-family:"Orbitron","Share Tech Mono",sans-serif;letter-spacing:.04em}
+button{font-family:inherit;cursor:pointer;color:inherit}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:900;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px);mix-blend-mode:multiply}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:899;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.65) 100%)}
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,240,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.06) 1px,transparent 1px);
+  background-size:48px 48px;mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%)}
+.cut{clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut))}
+.cut2{clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,var(--cut) 100%,0 calc(100% - var(--cut)))}
+.panel{position:relative;background:linear-gradient(180deg,var(--bk3),var(--bk2));border:0;padding:22px}
+.panel::before{content:"";position:absolute;inset:0;background:var(--ln);z-index:-1;clip-path:inherit}
+.frame{position:relative;isolation:isolate}
+.frame::before{content:"";position:absolute;inset:0;background:var(--yl);opacity:.55;clip-path:inherit;z-index:-2}
+.frame::after{content:"";position:absolute;inset:1.5px;background:linear-gradient(180deg,var(--bk3),var(--bk2));clip-path:inherit;z-index:-1}
+.frame.cy::before{background:var(--cy)}.frame.mg::before{background:var(--mg)}
+.glow-y{text-shadow:0 0 8px rgba(252,238,10,.8),0 0 28px rgba(252,238,10,.45)}
+.glow-c{text-shadow:0 0 8px rgba(0,240,255,.8),0 0 24px rgba(0,240,255,.4)}
+.glow-m{text-shadow:0 0 8px rgba(255,42,109,.8),0 0 24px rgba(255,42,109,.4)}
+.tag{font-size:.72rem;letter-spacing:.2em;color:var(--cy)}
+.mut{color:var(--mu)}
+
+/* glitch */
+.gl{position:relative;display:inline-block}
+.gl::before,.gl::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;overflow:hidden;pointer-events:none}
+.gl::before{color:var(--cy);transform:translate(-2px,0);clip-path:inset(0 0 60% 0);animation:gla 2.6s steps(1) infinite}
+.gl::after{color:var(--mg);transform:translate(2px,0);clip-path:inset(55% 0 0 0);animation:glb 3.1s steps(1) infinite}
+@keyframes gla{0%,88%,100%{clip-path:inset(0 0 100% 0)}90%{clip-path:inset(10% 0 55% 0);transform:translate(-4px,0)}94%{clip-path:inset(40% 0 30% 0);transform:translate(3px,0)}97%{clip-path:inset(0 0 70% 0);transform:translate(-2px,0)}}
+@keyframes glb{0%,82%,100%{clip-path:inset(100% 0 0 0)}84%{clip-path:inset(60% 0 10% 0);transform:translate(4px,0)}90%{clip-path:inset(20% 0 60% 0);transform:translate(-3px,0)}95%{clip-path:inset(75% 0 0 0);transform:translate(2px,0)}}
+.shake{animation:shk .5s steps(2)}
+@keyframes shk{0%{transform:translate(0)}20%{transform:translate(-6px,2px)}40%{transform:translate(5px,-2px)}60%{transform:translate(-4px,1px)}80%{transform:translate(3px,-1px)}100%{transform:none}}
+
+/* buttons */
+.btn{position:relative;overflow:hidden;background:var(--yl);color:#0b0b0b;border:0;padding:13px 26px;font:700 .95rem "Orbitron",sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);transition:filter .2s,transform .15s}
+.btn:hover{filter:drop-shadow(0 0 10px var(--yl)) brightness(1.08)}
+.btn:active{transform:translate(2px,2px)}
+.btn::after{content:"";position:absolute;left:0;right:0;top:-40%;height:36%;background:linear-gradient(180deg,transparent,rgba(255,255,255,.7),transparent);opacity:0}
+.btn:hover::after{opacity:1;animation:scan .7s linear infinite}
+@keyframes scan{to{top:120%}}
+.btn.ghost{background:transparent;color:var(--cy);box-shadow:inset 0 0 0 1.5px var(--cy)}
+.btn.ghost:hover{background:rgba(0,240,255,.12);filter:drop-shadow(0 0 8px var(--cy))}
+.btn.sm{padding:9px 16px;font-size:.78rem}
+.btn:focus-visible,.nv:focus-visible,.opt:focus-visible,.chip:focus-visible,.mute:focus-visible{outline:2px solid var(--cy);outline-offset:3px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+
+/* phases */
+#bootbrand{font:900 clamp(2.1rem,9vw,4.6rem)/1 "Orbitron",sans-serif;color:var(--yl);letter-spacing:.14em;margin:0 0 22px;text-shadow:0 0 10px rgba(252,238,10,.8),0 0 34px rgba(252,238,10,.4);animation:flick 3.4s steps(1) infinite}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.35}94%{opacity:1}96%{opacity:.5}97%{opacity:1}}
+.seam{position:absolute;left:0;top:50%;height:3px;margin-top:-1.5px;width:0;left:50%;transform:translateX(-50%);background:#fff;box-shadow:0 0 18px 4px var(--yl),0 0 60px 12px var(--cy);z-index:5;opacity:0;transition:width .55s cubic-bezier(.7,0,.2,1),opacity .15s}
+#boot.seam .seam{width:100%;opacity:1}
+#boot.open .seam{opacity:0;transition:opacity .5s .2s}
+#boot.seam .boot-in{opacity:0;transition:opacity .3s}
+#boot.flash::after{content:"";position:absolute;inset:0;background:var(--yl);z-index:6;opacity:0;animation:fl .35s ease-out}
+@keyframes fl{0%{opacity:.55}100%{opacity:0}}
+.phase{position:fixed;inset:0;z-index:50}
+#boot{background:#000;z-index:100;display:flex;align-items:center;justify-content:center;padding:18px}
+.shutter{position:absolute;left:0;right:0;height:50%;background:#000;z-index:3;transition:transform .9s cubic-bezier(.7,0,.2,1)}
+.shutter.t{top:0;border-bottom:2px solid var(--yl)}.shutter.b{bottom:0;border-top:2px solid var(--yl)}
+#boot.open .shutter.t{transform:translateY(-101%)}#boot.open .shutter.b{transform:translateY(101%)}
+.boot-in{position:relative;z-index:4;width:min(720px,100%);transition:opacity .35s}
+#boot.open .boot-in{opacity:0}
+#bootlog{min-height:210px;font-size:.88rem;color:var(--gn);white-space:pre-wrap;line-height:1.55}
+#bootlog .w{color:var(--yl)}#bootlog .c{color:var(--cy)}
+.bar{height:14px;background:#050505;border:1.5px solid var(--yl);padding:2px;margin-top:14px}
+.bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--yl) 0 8px,transparent 8px 11px);box-shadow:0 0 12px var(--yl)}
+#bootpct{font:900 clamp(2.4rem,9vw,4rem) "Orbitron",sans-serif;color:var(--yl)}
+
+#landing{z-index:60;overflow-y:auto;display:flex;align-items:center;justify-content:center;padding:26px 18px;background:radial-gradient(ellipse at 70% 20%,rgba(255,42,109,.16),transparent 55%),radial-gradient(ellipse at 15% 80%,rgba(0,240,255,.13),transparent 55%),var(--bk);transition:opacity .6s,transform .6s,filter .6s}
+#landing .l-wrap>*{opacity:0;transform:translateY(34px);filter:blur(8px)}
+#landing.in .l-wrap>*{animation:lin .9s cubic-bezier(.2,.8,.2,1) both}
+#landing.in .l-wrap>*:nth-child(3){animation-delay:0.12s}#landing.in .l-wrap>*:nth-child(4){animation-delay:0.24s}#landing.in .l-wrap>*:nth-child(5){animation-delay:0.36s}#landing.in .l-wrap>*:nth-child(6){animation-delay:0.48s}#landing.in .l-wrap>*:nth-child(7){animation-delay:0.60s}#landing.in .l-wrap>*:nth-child(8){animation-delay:0.72s}
+#landing.in .l-wrap>.hud-corner{animation:lin .6s ease-out both,none}
+@keyframes lin{from{opacity:0;transform:translateY(34px);filter:blur(8px)}60%{filter:blur(0)}to{opacity:1;transform:none;filter:blur(0)}}
+#landing.in::before{content:"";position:absolute;left:0;right:0;top:-10%;height:12%;background:linear-gradient(180deg,transparent,rgba(0,240,255,.25),transparent);animation:sweep 1.6s ease-in .1s both;pointer-events:none}
+@keyframes sweep{to{top:110%}}
+#landing.out{pointer-events:none;animation:lgl .75s steps(1,end) forwards}
+@keyframes lgl{0%{transform:none}12%{transform:translate(-10px,0) skewX(5deg);filter:hue-rotate(60deg)}24%{transform:translate(8px,0) skewX(-4deg);filter:hue-rotate(-40deg) brightness(1.4)}36%{transform:translate(-4px,2px) skewX(2deg);filter:none}
+ 50%{transform:scale(1.04);opacity:.8;filter:blur(2px)}100%{transform:scale(1.18);opacity:0;filter:blur(10px)}}
+.l-wrap{position:relative;z-index:1;max-width:980px;width:100%}
+.l-h{font:900 clamp(2.6rem,10.5vw,7.4rem);line-height:.95;margin:10px 0 0;color:var(--yl);text-transform:uppercase}
+.l-h2{font:700 clamp(1.1rem,3.6vw,2rem);color:var(--cy);margin:10px 0 0;letter-spacing:.3em}
+.l-p{max-width:620px;margin:22px 0 28px;color:var(--tx)}
+.hud-corner{position:absolute;width:44px;height:44px;border:2px solid var(--cy);opacity:.7}
+.hc1{left:-10px;top:-10px;border-right:0;border-bottom:0}.hc2{right:-10px;bottom:-10px;border-left:0;border-top:0}
+.stat-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.stat{padding:8px 14px;border:1px solid var(--ln);font-size:.78rem;color:var(--mu)}
+.stat b{color:var(--yl);font-weight:400}
+
+/* dashboard */
+#app{z-index:40;display:none;flex-direction:column;background:var(--bk)}
+#app.on{display:flex}
+.top{flex:none;display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:1.5px solid var(--ln);background:rgba(11,11,11,.96);position:relative;z-index:5}
+.top .lg{font:900 1rem "Orbitron";color:var(--yl);white-space:nowrap}
+.pg{flex:1;min-width:0}
+.pg-l{display:flex;justify-content:space-between;font-size:.72rem;letter-spacing:.14em;color:var(--mu);margin-bottom:4px}
+.pg-l b{color:var(--cy);font-weight:400}
+.seg{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;height:10px}
+.seg i{display:block;background:#1b1b22;border:1px solid rgba(255,255,255,.08);transform:skewX(-20deg);transition:background .4s,box-shadow .4s}
+.seg i.on{background:var(--yl);box-shadow:0 0 10px var(--yl)}
+.mute{flex:none;background:none;border:1.5px solid var(--ln);padding:6px 10px;font-size:.72rem;letter-spacing:.14em;color:var(--cy)}
+.mute[aria-pressed="true"]{color:var(--mu)}
+.menu-btn{display:none}
+.body{flex:1;min-height:0;display:flex}
+#side{flex:none;width:300px;border-right:1.5px solid var(--ln);background:rgba(17,17,20,.92);padding:16px 14px;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
+.side-h{font-size:.72rem;letter-spacing:.2em;color:var(--mu);padding:4px 4px 10px}
+.nv{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:none;border:0;border-left:3px solid transparent;padding:11px 12px;color:var(--tx);transition:background .2s,border-color .2s,color .2s}
+.nv:hover{background:rgba(0,240,255,.07);border-left-color:var(--cy)}
+.nv .n{flex:none;font:700 .8rem "Orbitron";color:var(--mu);padding-top:2px}
+.nv .t{font-size:.9rem;line-height:1.35}
+.nv .st{flex:none;margin-left:auto;font-size:.68rem;letter-spacing:.1em;color:var(--mu);padding-top:3px}
+.nv.on{background:rgba(252,238,10,.09);border-left-color:var(--yl);color:var(--yl)}
+.nv.on .n{color:var(--yl)}
+.nv.done .st{color:var(--gn)}
+.nv.q{margin-top:10px;border:1.5px dashed var(--mg);border-left:3px solid var(--mg)}
+.nv.q.on{background:rgba(255,42,109,.1);color:var(--mg)}.nv.q .n{color:var(--mg)}
+.side-f{margin-top:auto;padding:14px 4px 0;font-size:.7rem;color:var(--mu)}
+#main{flex:1;min-width:0;overflow-y:auto;padding:26px clamp(16px,4vw,48px) 70px;scroll-behavior:smooth}
+.view{max-width:860px;margin:0 auto;animation:vin .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes vin{0%{opacity:0;transform:translateX(var(--dx,36px)) skewX(calc(var(--dx,36px) / -6));filter:blur(6px) hue-rotate(60deg);clip-path:inset(0 0 40% 0)}
+ 35%{opacity:1;transform:translateX(calc(var(--dx,36px) * -.12));filter:blur(0) hue-rotate(-30deg);clip-path:inset(0 0 0 0)}
+ 50%{transform:translateX(5px)}65%{transform:translateX(-3px);filter:none}100%{opacity:1;transform:none;filter:none;clip-path:inset(0 0 0 0)}}
+@keyframes kin{from{opacity:0;transform:translateY(22px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.view>*{animation:kin .6s cubic-bezier(.2,.8,.2,1) backwards}
+.view>*:nth-child(1){animation-delay:.10s}.view>*:nth-child(2){animation-delay:.16s}.view>*:nth-child(3){animation-delay:.22s}.view>*:nth-child(4){animation-delay:.28s}
+.view>*:nth-child(5){animation-delay:.34s}.view>*:nth-child(6){animation-delay:.40s}.view>*:nth-child(7){animation-delay:.46s}.view>*:nth-child(8){animation-delay:.52s}
+.view>*:nth-child(9){animation-delay:.58s}.view>*:nth-child(10){animation-delay:.64s}.view>*:nth-child(n+11){animation-delay:.7s}
+.kp li{animation:kin .5s cubic-bezier(.2,.8,.2,1) backwards}
+.kp li:nth-child(1){animation-delay:.5s}.kp li:nth-child(2){animation-delay:.6s}.kp li:nth-child(3){animation-delay:.7s}.kp li:nth-child(4){animation-delay:.8s}
+/* wipe antar halaman */
+#wipe{position:absolute;inset:0;z-index:30;pointer-events:none;overflow:hidden}
+#wipe i{position:absolute;top:-5%;bottom:-5%;left:-60%;width:60%;transform:translateX(0) skewX(-18deg);opacity:0}
+#wipe i:nth-child(1){background:var(--mg);box-shadow:0 0 40px var(--mg)}
+#wipe i:nth-child(2){background:var(--cy);box-shadow:0 0 40px var(--cy)}
+#wipe i:nth-child(3){background:var(--yl);box-shadow:0 0 40px var(--yl)}
+#wipe.run i{animation:wp .8s cubic-bezier(.65,0,.25,1) both}
+#wipe.run i:nth-child(2){animation-delay:.06s}#wipe.run i:nth-child(3){animation-delay:.12s}
+@keyframes wp{0%{opacity:1;transform:translateX(0) skewX(-18deg)}100%{opacity:1;transform:translateX(420%) skewX(-18deg)}}
+/* masuk dashboard */
+#app.enter .top{animation:topin .8s cubic-bezier(.2,.8,.2,1) backwards}
+#app.enter #side{animation:sidein .9s .15s cubic-bezier(.2,.8,.2,1) backwards}
+#app.enter #main{animation:mainin 1.1s .3s ease-out backwards}
+#app.enter .nv{animation:nvin .5s cubic-bezier(.2,.8,.2,1) backwards}
+#app.enter .nv:nth-child(2){animation-delay:.5s}#app.enter .nv:nth-child(3){animation-delay:.58s}#app.enter .nv:nth-child(4){animation-delay:.66s}
+#app.enter .nv:nth-child(5){animation-delay:.74s}#app.enter .nv:nth-child(6){animation-delay:.82s}#app.enter .nv:nth-child(7){animation-delay:.92s}
+#app.enter .seg i{animation:segin .5s backwards}
+#app.enter .seg i:nth-child(2){animation-delay:.35s}#app.enter .seg i:nth-child(3){animation-delay:.45s}#app.enter .seg i:nth-child(4){animation-delay:.55s}#app.enter .seg i:nth-child(5){animation-delay:.65s}
+@keyframes topin{from{transform:translateY(-100%);opacity:0}}
+@keyframes sidein{from{transform:translateX(-100%);opacity:0}}
+@keyframes mainin{from{opacity:0;filter:blur(10px) brightness(2)}}
+@keyframes nvin{from{opacity:0;transform:translateX(-26px)}}
+@keyframes segin{from{transform:skewX(-20deg) scaleY(0);opacity:0}}
+.view.leave{animation:vout .22s forwards}
+@keyframes vout{to{opacity:0;transform:translateX(-18px)}}
+.m-no{font:700 .8rem "Orbitron";letter-spacing:.3em;color:var(--mg)}
+.m-h{font:900 clamp(1.7rem,5vw,2.8rem);line-height:1.1;margin:6px 0 4px;color:var(--yl);text-transform:uppercase}
+.m-sub{color:var(--cy);margin:0 0 20px}
+.sec-t{font:700 .95rem "Orbitron";color:var(--cy);margin:26px 0 8px;letter-spacing:.14em}
+.sec-t::before{content:"> ";color:var(--yl)}
+.view p{margin:0 0 12px}
+.view b{color:var(--yl);font-weight:400}
+.quote{border-left:3px solid var(--mg);background:rgba(255,42,109,.07);padding:12px 16px;margin:14px 0}
+.quote small{display:block;color:var(--mu);margin-top:4px}
+.kp{list-style:none;margin:10px 0;padding:0;display:grid;gap:8px}
+.kp li{position:relative;padding:10px 14px 10px 38px;background:rgba(0,240,255,.05);border:1px solid rgba(0,240,255,.2)}
+.kp li::before{content:"\25B8";position:absolute;left:14px;color:var(--yl)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{background:transparent;border:1.5px solid var(--cy);color:var(--cy);padding:8px 14px;font-size:.85rem;letter-spacing:.06em;transition:background .2s,color .2s,box-shadow .2s}
+.chip:hover{background:rgba(0,240,255,.12)}
+.chip.on{background:var(--cy);color:#0b0b0b;box-shadow:0 0 14px rgba(0,240,255,.6)}
+.chip.m{border-color:var(--mg);color:var(--mg)}.chip.m.on{background:var(--mg);color:#0b0b0b;box-shadow:0 0 14px rgba(255,42,109,.6)}
+.chip.y{border-color:var(--yl);color:var(--yl)}.chip.y.on{background:var(--yl);color:#0b0b0b;box-shadow:0 0 14px rgba(252,238,10,.6)}
+.reveal{min-height:120px}
+.reveal .in{animation:vin .4s cubic-bezier(.2,.8,.2,1)}
+.nodes{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:720px){.nodes{grid-template-columns:repeat(3,1fr)}}
+.m-foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:34px;padding-top:18px;border-top:1px dashed var(--ln)}
+.read-ok{color:var(--gn);font-size:.85rem;letter-spacing:.12em}
+
+/* detail */
+.dt{margin:12px 0;border:1.5px solid rgba(0,240,255,.35);background:rgba(0,240,255,.03)}
+.dt>summary{cursor:pointer;list-style:none;padding:13px 44px 13px 16px;font:700 .92rem "Orbitron",sans-serif;letter-spacing:.05em;color:var(--cy);position:relative;transition:background .2s,color .2s}
+.dt>summary::-webkit-details-marker{display:none}
+.dt>summary::after{content:"+";position:absolute;right:16px;top:50%;transform:translateY(-50%);font:700 1.3rem "Share Tech Mono",monospace;color:var(--yl)}
+.dt[open]>summary{color:var(--yl);background:rgba(252,238,10,.06)}
+.dt[open]>summary::after{content:"\2212"}
+.dt>summary:hover{background:rgba(0,240,255,.09)}
+.dt>summary:focus-visible{outline:2px solid var(--cy);outline-offset:2px}
+.dtb{padding:6px 16px 16px;animation:kin .45s cubic-bezier(.2,.8,.2,1)}
+.dtb p{margin:10px 0}
+.tbw{overflow-x:auto;margin:12px 0;border:1px solid var(--ln)}
+table.dl{border-collapse:collapse;width:100%;font-size:.84rem;min-width:420px}
+table.dl th{background:rgba(252,238,10,.12);color:var(--yl);text-align:left;padding:9px 12px;font:700 .72rem "Orbitron",sans-serif;letter-spacing:.08em;white-space:nowrap}
+table.dl td{padding:9px 12px;border-top:1px solid rgba(255,255,255,.08);vertical-align:top;line-height:1.5}
+table.dl td:first-child{color:var(--cy)}
+.gloss{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:10px}
+.gloss .g{padding:10px 12px;border-left:3px solid var(--mg);background:rgba(255,42,109,.06);display:flex;flex-direction:column;gap:3px}
+.gloss .g b{color:var(--mg);font-weight:400}
+.gloss .g span{font-size:.85rem}
+.nv.x{margin-top:6px;border:1.5px dashed var(--cy);border-left:3px solid var(--cy)}
+.nv.x.on{background:rgba(0,240,255,.1);color:var(--cy)}.nv.x .n{color:var(--cy)}
+/* ujian */
+.xbar{position:sticky;top:-26px;z-index:25;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:#0b0b0b;border-bottom:1.5px solid var(--ln);padding:10px 4px;margin:-8px 0 16px}
+.xtime{font-size:2rem;color:var(--cy);text-shadow:0 0 10px rgba(0,240,255,.6)}
+.xtime.warn{color:var(--rd);text-shadow:0 0 10px rgba(255,0,60,.7);animation:blink2 1s steps(1) infinite}
+@keyframes blink2{50%{opacity:.4}}
+.xnav{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;max-width:480px}
+@media(max-width:600px){.xbar{gap:6px;padding:8px 4px}.xtime{font-size:1.5rem}.xprog{width:100%;min-width:0}.xnav{flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding-bottom:4px}.xnav a{flex:none}}
+.xnav a{display:grid;place-items:center;width:26px;height:26px;border:1px solid var(--ln);font-size:.72rem;color:var(--mu);text-decoration:none}
+.xnav a.done{background:var(--yl);color:#0b0b0b;border-color:var(--yl)}
+.xq{margin:0 0 16px}
+.xqt{margin:8px 0 12px;font-size:1.02rem}
+.opt.sel{border-color:var(--yl);background:rgba(252,238,10,.1)}
+.opt.rv2{cursor:default}
+.xta{width:100%;background:var(--bk);color:var(--tx);border:1.5px solid rgba(255,255,255,.2);padding:12px;font:inherit;resize:vertical;min-height:140px}
+.xta:focus{outline:none;border-color:var(--mg);box-shadow:0 0 12px rgba(255,42,109,.35)}
+.xmine{white-space:pre-wrap;background:var(--bk);border:1px dashed rgba(255,255,255,.2);padding:10px 12px;margin-top:4px}
+.rub{display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer}
+.rub input{margin-top:5px;accent-color:var(--yl);width:16px;height:16px;flex:none}
+/* quiz */
+.qbar{display:flex;gap:6px;margin:16px 0}
+.qbar i{flex:1;height:6px;background:#1b1b22}
+.qbar i.on{background:var(--cy);box-shadow:0 0 8px var(--cy)}.qbar i.ok{background:var(--gn);box-shadow:0 0 8px var(--gn)}.qbar i.no{background:var(--rd);box-shadow:0 0 8px var(--rd)}
+.q-t{font:700 clamp(1.1rem,3vw,1.5rem)/1.4 "Orbitron";margin:6px 0 18px}
+.opt{display:flex;gap:14px;width:100%;text-align:left;background:var(--bk3);border:1.5px solid rgba(255,255,255,.14);padding:14px 16px;margin:0 0 10px;font-size:.95rem;transition:border-color .2s,background .2s,transform .15s}
+.opt .k{flex:none;font:700 .85rem "Orbitron";color:var(--yl)}
+.opt:hover:not(:disabled){border-color:var(--cy);transform:translateX(5px);background:rgba(0,240,255,.07)}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--gn);background:rgba(57,255,20,.12);animation:blink 0.5s 3}
+.opt.no{border-color:var(--rd);background:rgba(255,0,60,.14);animation:shk .5s steps(2)}
+@keyframes blink{50%{background:rgba(57,255,20,.4);box-shadow:0 0 22px rgba(57,255,20,.7)}}
+.fb{display:none;margin-top:12px;padding:12px 16px;border-left:3px solid var(--cy);background:rgba(0,240,255,.06)}
+.fb.on{display:block;animation:vin .4s}
+.res{text-align:center;padding:24px 8px}
+.res h2{font:900 clamp(2rem,8vw,4.4rem);margin:8px 0;line-height:1}
+.res.pass h2{color:var(--gn);text-shadow:0 0 12px rgba(57,255,20,.8),0 0 40px rgba(57,255,20,.4)}
+.res.fail h2{color:var(--rd);text-shadow:0 0 12px rgba(255,0,60,.8),0 0 40px rgba(255,0,60,.4)}
+.score{font:900 clamp(2.4rem,8vw,3.6rem) "Orbitron";color:var(--yl)}
+
+@media(max-width:860px){
+  .menu-btn{display:inline-block}
+  #side{position:absolute;z-index:20;top:0;bottom:0;left:0;width:min(86vw,320px);transform:translateX(-102%);transition:transform .35s cubic-bezier(.2,.8,.2,1);box-shadow:8px 0 30px rgba(0,0,0,.7)}
+  #side.open{transform:none}
+  .body{position:relative}
+  .top .lg{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg" aria-hidden="true"></div>
+
+<!-- PHASE 1: BOOT -->
+<section id="boot" class="phase" aria-label="Memuat sistem">
+  <div class="shutter t"></div><div class="shutter b"></div>
+  <div class="seam" id="seam"></div>
+  <div class="boot-in">
+    <div id="bootbrand" class="gl" data-t="OMAHCODING">OMAHCODING</div>
+    <div class="tag" style="margin-bottom:8px">NEURAL LMS // BOOT SEQUENCE</div>
+    <div id="bootlog" aria-live="polite"></div>
+    <div class="bar"><i id="bootbar"></i></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:8px">
+      <span id="bootmsg" class="mut" style="font-size:.8rem">MENYIAPKAN ANTARMUKA</span>
+      <span id="bootpct" class="gl" data-t="0%">0%</span>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2: LANDING -->
+<section id="landing" class="phase" aria-label="Halaman awal">
+  <div class="l-wrap">
+    <div class="hud-corner hc1"></div><div class="hud-corner hc2"></div>
+    <div class="tag">MATA KULIAH // AGAMA ISLAM // SEM 03</div>
+    <h1 class="l-h glow-y"><span class="gl" data-t="ISLAM">ISLAM</span><br><span class="gl" data-t="& IPTEK" style="color:var(--mg);text-shadow:0 0 10px rgba(255,42,109,.8),0 0 36px rgba(255,42,109,.4)">&amp; IPTEK</span></h1>
+    <div class="l-h2 glow-c">NEURAL LEARNING SYSTEM</div>
+    <p class="l-p">Lima modul lengkap tentang ilmu, akal, wahyu, iman, dan etika. Baca tiap modul, tandai sebagai selesai, uji pemahamanmu lewat System Test, lalu latihan penuh di Simulasi UTS.</p>
+    <button type="button" class="btn" id="enter">Initiate Learning</button>
+    <div class="stat-row">
+      <span class="stat">MODUL <b>05</b></span>
+      <span class="stat">SYSTEM TEST <b>05 SOAL</b></span>
+      <span class="stat">SIMULASI UTS <b>20 PG + 3 ESAI</b></span>
+      <span class="stat">STATUS <b>ONLINE</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3: DASHBOARD -->
+<section id="app" class="phase" aria-label="Dasbor pembelajaran">
+  <header class="top">
+    <button type="button" class="btn ghost sm menu-btn" id="menu" aria-expanded="false" aria-controls="side">Menu</button>
+    <span class="lg glow-y">ISLAM//IPTEK</span>
+    <div class="pg">
+      <div class="pg-l"><span>SYNC MODUL</span><b id="pgt">0/5</b></div>
+      <div class="seg" id="seg"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <button type="button" class="mute" id="mute" aria-pressed="false">SFX ON</button>
+  </header>
+  <div class="body">
+    <nav id="side" aria-label="Navigasi modul"></nav>
+    <main id="main" tabindex="-1"><div id="view"></div></main>
+  </div>
+  <div id="wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+</section>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var RED=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+var KEY="islam-iptek-lms";
+var S={read:[],mute:false,best:0,xbest:0};
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);S.read=o.read||[];S.mute=!!o.mute;S.best=o.best||0;S.xbest=o.xbest||0;}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+/* ---------- audio ---------- */
+var AC=null;
+function beep(f,d,type,v,delay){
+  if(S.mute)return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==="suspended")AC.resume();
+    var t=AC.currentTime+(delay||0),o=AC.createOscillator(),g=AC.createGain();
+    o.type=type||"square";o.frequency.setValueAtTime(f,t);
+    g.gain.setValueAtTime(v||.05,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+    o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.02);
+  }catch(e){}
+}
+var SFX={
+  click:function(){beep(520,.06,"square",.04);},
+  ok:function(){beep(660,.1,"square",.05);beep(990,.16,"square",.05,.09);},
+  no:function(){beep(140,.28,"sawtooth",.07);beep(90,.3,"sawtooth",.06,.12);},
+  win:function(){[523,659,784,1047].forEach(function(f,i){beep(f,.2,"square",.05,i*.12);});},
+  lose:function(){[330,262,196,131].forEach(function(f,i){beep(f,.25,"sawtooth",.06,i*.15);});},
+  boot:function(){beep(300,.05,"square",.03);}
+};
+
+/* ---------- materi ---------- */
+var M=[
+{t:"Konsep Ilmu dalam Islam",s:"Ilmu bersumber dari Allah",
+ h:function(){return ''+
+ '<p>Dalam Islam, <b>ilmu berasal dari Allah</b>. Manusia tidak menciptakan kebenaran. Manusia menemukan, membaca, dan memahami tanda-tanda yang sudah Allah sediakan. Karena itu mencari ilmu bernilai ibadah, dan wahyu pertama yang turun (QS Al-Alaq: 1-5) dibuka dengan perintah <b>iqra</b>, bacalah.</p>'+
+ '<h3 class="sec-t">DUA JALUR TANDA ALLAH</h3>'+
+ '<div class="tabs" role="group" aria-label="Jenis ayat"><button type="button" class="chip on" data-k="qa">AYAT QAULIYAH</button><button type="button" class="chip m" data-k="ka">AYAT KAUNIYAH</button></div>'+
+ '<div class="reveal panel cut frame" id="m1r"></div>'+
+ '<h3 class="sec-t">MANUSIA SEBAGAI KHALIFAH</h3>'+
+ '<p>Allah menetapkan manusia sebagai <b>khalifah fi al-ardh</b>, pengelola bumi (QS Al-Baqarah: 30). Amanah ini menuntut kemampuan: mengenal sumber daya, memahami hukum alam, dan mengatur kehidupan dengan adil. Tanpa ilmu, amanah itu tidak bisa dijalankan, maka <b>menuntut ilmu wajib</b> bagi muslim.</p>'+
+ '<ul class="kp"><li>Ilmu adalah anugerah dan amanah dari Allah.</li><li>Wahyu dan alam sama-sama bahan bacaan yang harus dipelajari.</li><li>Kewajiban menuntut ilmu lahir dari tugas mengelola bumi.</li></ul>';},
+ bind:function(){
+  var D={qa:["AYAT QAULIYAH","Ayat yang <b>difirmankan</b>: teks Al-Quran. Ia memberi nilai, arah, dan batas. Contoh: perintah membaca, berlaku adil, dan larangan berbuat kerusakan di bumi.","cy"],
+         ka:["AYAT KAUNIYAH","Ayat yang <b>terbentang</b>: alam semesta beserta hukum-hukumnya, dari pergantian siang dan malam sampai struktur tubuh manusia. Ilmu pengetahuan membaca ayat ini lewat pengamatan dan percobaan.","mg"]};
+  function show(k){var d=D[k];$("#m1r").innerHTML='<div class="in"><div class="tag" style="color:var(--'+(k==="qa"?"cy":"mg")+')">'+d[0]+'</div><p style="margin:8px 0 0">'+d[1]+'</p></div>';
+    $$("[data-k]").forEach(function(b){b.classList.toggle("on",b.dataset.k===k);});}
+  $$("[data-k]").forEach(function(b){b.addEventListener("click",function(){SFX.click();show(b.dataset.k);});});show("qa");}},
+{t:"Perkembangan IPTEKS dan Akal",s:"Ulul Albab dan bimbingan wahyu",
+ h:function(){return ''+
+ '<p>Islam menjunjung tinggi <b>akal</b>. Al-Quran berulang kali mengajak manusia berpikir, merenung, dan menggunakan nalar. Orang yang menggunakan akalnya secara utuh disebut <b>Ulul Albab</b>: mereka merenungkan penciptaan langit dan bumi sambil tetap mengingat Allah (QS Ali Imran: 190-191).</p>'+
+ '<div class="quote">Ilmu dan teknologi adalah hasil kerja akal. Akal yang tidak dibimbing wahyu bisa menghasilkan teknologi yang merusak.<small>Poin utama modul 2</small></div>'+
+ '<h3 class="sec-t">AKAL DAN WAHYU</h3>'+
+ '<div class="tabs" role="group" aria-label="Pilih"><button type="button" class="chip y on" data-k="a">AKAL TANPA WAHYU</button><button type="button" class="chip y" data-k="b">AKAL DENGAN WAHYU</button></div>'+
+ '<div class="reveal panel cut frame" id="m2r"></div>'+
+ '<ul class="kp"><li>IPTEKS lahir dari pengamatan, penalaran, dan percobaan.</li><li>Wahyu memberi tujuan dan batas etika bagi penerapan IPTEKS.</li><li>Ulul Albab menggabungkan zikir dan pikir.</li></ul>';},
+ bind:function(){
+  var D={a:["RISIKO","Kemampuan teknis berjalan tanpa arah nilai. Pertanyaan \"bisakah kita membuatnya\" menggeser pertanyaan \"pantaskah kita membuatnya\". Hasilnya bisa berupa kerusakan lingkungan, senjata pemusnah massal, atau penyalahgunaan data."],
+         b:["ARAH","Akal bekerja di dalam kerangka nilai. Teknologi diarahkan untuk kemaslahatan, kerusakan dicegah, dan pencapaian ilmiah menambah kesadaran akan kebesaran Allah."]};
+  function show(k){var d=D[k];$("#m2r").innerHTML='<div class="in"><div class="tag" style="color:var(--yl)">'+d[0]+'</div><p style="margin:8px 0 0">'+d[1]+'</p></div>';
+    $$("[data-k]").forEach(function(b){b.classList.toggle("on",b.dataset.k===k);});}
+  $$("[data-k]").forEach(function(b){b.addEventListener("click",function(){SFX.click();show(b.dataset.k);});});show("a");}},
+{t:"Filsafat, Ilmu, dan Ajaran Islam",s:"Paradigma Tauhid",
+ h:function(){return ''+
+ '<p>Paradigma <b>Tauhid</b> memandang semua sumber pengetahuan bermuara pada satu Tuhan, sehingga ketiganya tidak bertentangan. Masing-masing punya wilayah dan caranya sendiri, dan saling melengkapi.</p>'+
+ '<h3 class="sec-t">TIGA PILAR PENGETAHUAN</h3>'+
+ '<div class="nodes" id="m3n">'+
+ '<button type="button" class="chip m" data-k="w">WAHYU</button><button type="button" class="chip" data-k="f">FILSAFAT</button><button type="button" class="chip y" data-k="s">SAINS</button></div>'+
+ '<div class="reveal panel cut2 frame cy" id="m3r" style="margin-top:12px"></div>'+
+ '<ul class="kp"><li>Wahyu memberi kebenaran absolut dan kerangka nilai.</li><li>Filsafat menguji gagasan lewat penalaran yang runtut.</li><li>Sains menguji klaim lewat data dan percobaan.</li><li>Ketiganya saling melengkapi dalam satu paradigma tauhid.</li></ul>';},
+ bind:function(){
+  var D={w:["WAHYU // ABSOLUT","Sumbernya Allah. Kebenarannya pasti dan menjadi tolok ukur nilai. Menjawab pertanyaan makna: dari mana, untuk apa, dan ke mana.","m"],
+         f:["FILSAFAT // RASIONAL","Sumbernya akal. Menelaah hakikat, logika, dan etika secara kritis. Membantu memahami wahyu dan menyusun dasar berpikir bagi ilmu.",""],
+         s:["SAINS // EMPIRIS","Sumbernya pengamatan dan percobaan. Menjelaskan cara kerja alam secara terukur. Hasilnya terus berkembang seiring bukti baru.","y"]};
+  function show(k){var d=D[k];$("#m3r").innerHTML='<div class="in"><div class="tag">'+d[0]+'</div><p style="margin:8px 0 0">'+d[1]+'</p></div>';
+    $$("#m3n .chip").forEach(function(b){b.classList.toggle("on",b.dataset.k===k);});}
+  $$("#m3n .chip").forEach(function(b){b.addEventListener("click",function(){SFX.click();show(b.dataset.k);});});show("w");}},
+{t:"Iman, Ilmu, dan Akhlak",s:"Satu kesatuan",
+ h:function(){return ''+
+ '<p>Iman, ilmu, dan akhlak berjalan bersama dan tidak bisa dipisahkan. QS Al-Mujadilah: 11 menyebut Allah mengangkat derajat orang beriman dan orang yang diberi ilmu.</p>'+
+ '<h3 class="sec-t">RUMUS KESEIMBANGAN</h3>'+
+ '<div class="nodes" id="m4n"><button type="button" class="chip m" data-k="a">ILMU TANPA IMAN</button><button type="button" class="chip" data-k="b">IMAN TANPA ILMU</button><button type="button" class="chip y" data-k="c">AKHLAK</button></div>'+
+ '<div class="reveal panel cut frame mg" id="m4r" style="margin-top:12px"></div>'+
+ '<ul class="kp"><li>Ilmu tanpa iman menjadi buta arah.</li><li>Iman tanpa ilmu menjadi lemah.</li><li>Akhlak adalah buah dari iman dan ilmu yang menyatu.</li></ul>';},
+ bind:function(){
+  var D={a:["BUTA","Orang berilmu tetapi tidak beriman kehilangan kompas. Ia tahu cara melakukan sesuatu, tetapi tidak punya pegangan tentang apa yang pantas dilakukan."],
+         b:["LEMAH","Orang beriman tetapi minim ilmu mudah tertipu dan sulit menjawab tantangan zaman. Keyakinannya tidak diikuti kemampuan mengelola persoalan nyata."],
+         c:["BUAH","Akhlak tampak dalam perilaku: jujur dalam meneliti, adil dalam memakai teknologi, dan bertanggung jawab terhadap sesama dan lingkungan. Ia hasil dari iman yang kuat dan ilmu yang benar."]};
+  function show(k){var d=D[k];$("#m4r").innerHTML='<div class="in"><div class="tag" style="color:var(--mg)">'+d[0]+'</div><p style="margin:8px 0 0">'+d[1]+'</p></div>';
+    $$("#m4n .chip").forEach(function(b){b.classList.toggle("on",b.dataset.k===k);});}
+  $$("#m4n .chip").forEach(function(b){b.addEventListener("click",function(){SFX.click();show(b.dataset.k);});});show("a");}},
+{t:"Etika Pengembangan Ilmu",s:"Maqashid as-Syariah dan Rahmatan lil 'Alamin",
+ h:function(){return ''+
+ '<p>Pengembangan ilmu harus sejalan dengan <b>Maqashid as-Syariah</b>, tujuan-tujuan pokok syariat. Setiap penelitian dan teknologi diuji dengan pertanyaan: apakah ia menjaga kelima hal ini, atau malah merusaknya?</p>'+
+ '<h3 class="sec-t">LIMA PERLINDUNGAN</h3>'+
+ '<div class="tabs" id="m5n"><button type="button" class="chip y on" data-k="0">AGAMA</button><button type="button" class="chip y" data-k="1">JIWA</button><button type="button" class="chip y" data-k="2">AKAL</button><button type="button" class="chip y" data-k="3">KETURUNAN</button><button type="button" class="chip y" data-k="4">HARTA</button></div>'+
+ '<div class="reveal panel cut frame" id="m5r"></div>'+
+ '<h3 class="sec-t">ORIENTASI AKHIR</h3>'+
+ '<p>Seluruh pengembangan ilmu berorientasi pada <b>Rahmatan lil \'Alamin</b>, rahmat bagi seluruh alam (QS Al-Anbiya: 107). Manfaat ilmu harus terasa oleh manusia, hewan, tumbuhan, dan lingkungan, bukan hanya oleh pemiliknya.</p>'+
+ '<ul class="kp"><li>Menjaga agama, jiwa, akal, keturunan, dan harta.</li><li>Teknologi yang mengancam salah satunya perlu dikoreksi.</li><li>Tujuan akhirnya rahmat bagi semesta.</li></ul>';},
+ bind:function(){
+  var D=[["HIFZ AD-DIN // MENJAGA AGAMA","Ilmu tidak boleh melemahkan keyakinan atau menghalangi ibadah. Contoh: teknologi informasi dipakai untuk menyebarkan pemahaman yang benar."],
+         ["HIFZ AN-NAFS // MENJAGA JIWA","Keselamatan manusia utama. Contoh: kedokteran, keselamatan kerja, dan larangan senjata yang membunuh tanpa pandang bulu."],
+         ["HIFZ AL-AQL // MENJAGA AKAL","Akal dilindungi dari yang merusaknya. Contoh: pendidikan yang jujur, perlawanan terhadap hoaks, dan pembatasan zat yang mengganggu kesadaran."],
+         ["HIFZ AN-NASL // MENJAGA KETURUNAN","Generasi masa depan dilindungi. Contoh: kesehatan ibu dan anak, serta penelitian genetika yang tidak merendahkan martabat manusia."],
+         ["HIFZ AL-MAL // MENJAGA HARTA","Harta diperoleh dan dipakai secara adil. Contoh: teknologi keuangan tanpa penipuan, dan perlindungan hak cipta serta data pribadi."]];
+  function show(k){var d=D[k];$("#m5r").innerHTML='<div class="in"><div class="tag" style="color:var(--yl)">'+d[0]+'</div><p style="margin:8px 0 0">'+d[1]+'</p></div>';
+    $$("#m5n .chip").forEach(function(b){b.classList.toggle("on",+b.dataset.k===k);});}
+  $$("#m5n .chip").forEach(function(b){b.addEventListener("click",function(){SFX.click();show(+b.dataset.k);});});show(0);}}
+];
+
+function E(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+/* ---------- materi pendalaman ---------- */
+function DT(t,b,open){return '<details class="dt"'+(open?' open':'')+'><summary>'+t+'</summary><div class="dtb">'+b+'</div></details>';}
+function TB(h,rows){return '<div class="tbw"><table class="dl"><thead><tr>'+h.map(function(x){return '<th>'+x+'</th>';}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+r.map(function(x){return '<td>'+x+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table></div>';}
+function GL(a){return '<div class="gloss">'+a.map(function(x){return '<div class="g"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>';}).join('')+'</div>';}
+function DEEP(a){return '<h3 class="sec-t">PENJELASAN LENGKAP</h3><p class="mut" style="font-size:.85rem">Klik judul untuk membuka atau menutup tiap bagian. Rujukan ayat dan hadis ditulis dengan nomor surah dan perawinya. Cocokkan redaksi lengkapnya dengan Al-Quran, kitab hadis, dan buku ajar dosen.</p>'+a.join('');}
+
+M[0].x=DEEP([
+DT('1. Makna ilmu: ilm, makrifah, dan hikmah',`
+<p>Kata <b>ilmu</b> berasal dari bahasa Arab <i>'ilm</i> yang berarti mengetahui sesuatu sebagaimana adanya. Dalam Al-Quran akar kata ini dan turunannya muncul ratusan kali, jauh lebih banyak daripada kata-kata lain yang berkaitan dengan hal duniawi. Itu menunjukkan betapa sentralnya ilmu dalam ajaran Islam.</p>
+<ul class="kp"><li><b>Ilm</b>: pengetahuan yang sudah teruji kebenarannya dan melekat pada pemiliknya. Mencakup yang bisa diindra maupun yang hanya bisa diterima lewat wahyu.</li><li><b>Makrifah</b>: pengenalan yang mendalam, sering dipakai untuk mengenal Allah dan diri sendiri.</li><li><b>Hikmah</b>: ilmu yang sudah matang menjadi kebijaksanaan, yaitu kemampuan menaruh sesuatu pada tempatnya.</li></ul>
+<p>Ilmu bukan sekadar menumpuk informasi. Ilmu dalam Islam punya tiga ciri: <b>benar</b> (sesuai kenyataan), <b>bermanfaat</b>, dan <b>mengantar pemiliknya mengenal Penciptanya</b>.</p>`,true),
+DT('2. Sumber ilmu dalam Islam',`
+<p>Islam mengakui beberapa jalan memperoleh pengetahuan, dan tiap jalan punya wilayahnya:</p>
+${TB(['Sumber','Cara kerja','Contoh'],[
+['Wahyu (khabar shadiq)','Diterima dari Allah lewat para nabi, dijaga dalam Al-Quran dan sunnah sahih','Keesaan Allah, hari akhir, tata cara ibadah'],
+['Indra (pengamatan)','Melihat, mendengar, meraba, lalu diuji berulang','Pengukuran suhu, pengamatan bintang'],
+['Akal (nalar)','Menyusun premis, menarik kesimpulan, menemukan pola','Matematika, logika, hukum sebab akibat'],
+['Hati (intuisi, ilham)','Kepekaan batin yang terlatih oleh ketakwaan','Kehati-hatian moral, rasa bersalah, firasat yang baik']])}
+<p>Sumber-sumber ini saling menopang. Wahyu tidak menggantikan pengamatan, dan pengamatan tidak bisa menjawab semua pertanyaan tentang makna dan tujuan hidup.</p>`),
+DT('3. Ayat qauliyah dan ayat kauniyah secara lebih rinci',`
+<p><b>Ayat</b> artinya tanda. Allah menurunkan dua kelompok tanda:</p>
+<ul class="kp"><li><b>Qauliyah</b> (dari <i>qaul</i>, ucapan): firman Allah yang tertulis dalam Al-Quran. Isinya akidah, ibadah, akhlak, hukum, kisah umat terdahulu, dan dorongan untuk berpikir.</li><li><b>Kauniyah</b> (dari <i>kaun</i>, alam): ciptaan Allah yang terbentang, yaitu langit, bumi, makhluk hidup, dan hukum-hukum yang mengaturnya (sunnatullah).</li></ul>
+<p>Al-Quran sendiri mengajak membaca ayat kauniyah. QS Fussilat: 53 menyatakan bahwa Allah akan memperlihatkan tanda-tanda kekuasaan-Nya di segenap penjuru dan pada diri manusia sendiri. Keduanya berasal dari satu sumber, sehingga <b>tidak mungkin saling bertentangan secara hakiki</b>.</p>
+<div class="quote">Kalau tampak ada pertentangan, ada tiga kemungkinan yang perlu diperiksa: pemahaman kita terhadap teks keliru, data atau teori ilmiahnya belum tepat, atau keduanya dibaca di luar konteksnya.<small>Cara berpikir yang dianjurkan untuk menjaga integrasi ilmu</small></div>
+<p>Contoh: ayat qauliyah memerintahkan salat pada waktu tertentu, sedangkan ilmu astronomi (kauniyah) menghitung posisi matahari untuk menetapkan waktu itu. Wahyu memberi perintah dan ilmu membantu melaksanakannya dengan tepat.</p>`),
+DT('4. Dalil perintah menuntut ilmu',`
+${TB(['Rujukan','Pesan pokok'],[
+['QS Al-Alaq: 1-5','Wahyu pertama membuka dengan perintah membaca atas nama Tuhan yang menciptakan; Allah mengajar manusia dengan pena dan mengajarkan apa yang belum diketahuinya'],
+['QS Thaha: 114','Doa agar ilmu terus ditambah'],
+['QS Az-Zumar: 9','Tidak sama orang yang berilmu dan yang tidak berilmu'],
+['QS Al-Mujadilah: 11','Allah mengangkat derajat orang beriman dan orang yang diberi ilmu'],
+['QS Fathir: 28','Yang paling takut kepada Allah di antara hamba-Nya adalah para ulama, yaitu orang yang berilmu'],
+['QS Al-Isra: 36','Jangan mengikuti sesuatu tanpa pengetahuan; pendengaran, penglihatan, dan hati akan dimintai pertanggungjawaban'],
+['Hadis riwayat Ibnu Majah','Menuntut ilmu wajib bagi setiap muslim'],
+['Hadis riwayat Muslim','Siapa menempuh jalan mencari ilmu, Allah mudahkan baginya jalan menuju surga']])}`),
+DT('5. Manusia sebagai khalifah fi al-ardh',`
+<p>QS Al-Baqarah: 30 mencatat pengumuman Allah kepada para malaikat bahwa Dia akan menjadikan khalifah di bumi. Ayat berikutnya (31) menyebut Allah mengajarkan kepada Adam nama-nama seluruhnya. Urutannya penting: <b>pengangkatan khalifah segera disusul pemberian ilmu</b>. Kedudukan ini tidak bisa dijalankan tanpa kapasitas ilmu.</p>
+<p>Tugas khalifah mencakup:</p>
+<ul class="kp"><li><b>Ta'mir (memakmurkan)</b>: QS Hud: 61 menyebut manusia diciptakan dari bumi dan diminta memakmurkannya.</li><li><b>Menegakkan keadilan</b>: mengelola sumber daya tanpa menzalimi sesama manusia maupun makhluk lain.</li><li><b>Menjaga keseimbangan</b>: tidak berbuat kerusakan setelah bumi diperbaiki (QS Al-A'raf: 56).</li><li><b>Mempertanggungjawabkan</b>: khalifah adalah pemegang amanah, bukan pemilik mutlak.</li></ul>
+<p>Syarat kecakapan khalifah: ilmu untuk mengenali sumber daya dan hukum alam, iman sebagai kompas, dan akhlak sebagai pengendali. Tanpa salah satunya, pengelolaan bumi pincang.</p>`),
+DT('6. Klasifikasi hukum menuntut ilmu',`
+<p>Ulama, di antaranya Al-Ghazali, membagi ilmu menurut kadar kewajibannya:</p>
+${TB(['Kategori','Ukuran','Contoh'],[
+['Fardhu ain','Wajib bagi setiap individu muslim sesuai kemampuannya','Rukun iman, tata cara wudu dan salat, halal-haram yang menyangkut kehidupan sehari-hari'],
+['Fardhu kifayah','Wajib bagi umat secara kolektif; gugur bila sebagian orang sudah memenuhinya','Kedokteran, teknik, pertanian, ekonomi, hukum, sains dasar'],
+['Sunnah','Dianjurkan, memperluas wawasan','Kajian lanjutan yang tidak mendesak'],
+['Terlarang','Ilmu yang tujuan atau akibat utamanya merusak','Sihir, penipuan, perakitan alat untuk menzalimi manusia']])}
+<p>Konsekuensinya: belajar teknik, kedokteran, atau sains <b>bukan urusan duniawi semata</b>. Jika umat kekurangan dokter atau insinyur yang mumpuni, seluruh umat menanggung dosa kolektif karena kewajiban kifayah belum terpenuhi.</p>`),
+DT('7. Etos ilmiah dalam sejarah peradaban Islam',`
+<p>Dorongan menuntut ilmu melahirkan tradisi keilmuan yang luas, terutama pada abad ke-8 sampai ke-13. Pusat-pusatnya antara lain <b>Baitul Hikmah</b> di Baghdad, yang menjadi tempat penerjemahan dan penelitian. Beberapa tokoh yang sering disebut:</p>
+${TB(['Tokoh','Bidang','Sumbangan yang dikenal'],[
+['Al-Khawarizmi','Matematika','Karya aljabar yang menamai cabang ilmu itu; istilah algoritma berasal dari namanya'],
+['Ibnu al-Haytham','Optik','Kitab al-Manazir yang menekankan percobaan dalam meneliti cahaya dan penglihatan'],
+['Ibnu Sina','Kedokteran, filsafat','Al-Qanun fi ath-Thibb, rujukan kedokteran selama berabad-abad'],
+['Az-Zahrawi','Bedah','Ensiklopedi at-Tasrif yang memuat rancangan alat bedah'],
+['Al-Biruni','Astronomi, geografi','Pengukuran dan pengamatan cermat di banyak bidang']])}
+<p>Poin belajarnya bukan nostalgia, melainkan <b>pola</b>: iman mendorong rasa ingin tahu, rasa ingin tahu melahirkan metode, dan metode yang ketat menghasilkan manfaat bagi masyarakat.</p>`),
+DT('8. Adab penuntut ilmu',`
+<ul class="kp"><li><b>Niat yang lurus</b>: belajar untuk memperoleh rida Allah dan memberi manfaat, bukan sekadar nilai atau gelar.</li><li><b>Rendah hati</b>: semakin banyak tahu, semakin sadar bahwa yang tidak diketahui jauh lebih banyak.</li><li><b>Menghormati guru dan sumber ilmu</b>: menyebut rujukan, tidak menjiplak.</li><li><b>Sabar dan tekun</b>: ilmu tidak datang sekaligus.</li><li><b>Mengamalkan</b>: ilmu yang tidak diamalkan kehilangan buahnya.</li><li><b>Membagikan</b>: menyebarkan ilmu yang benar kepada orang lain.</li></ul>`),
+DT('9. Kesalahpahaman yang sering muncul',`
+${TB(['Anggapan keliru','Koreksi'],[
+['Ilmu agama itu akhirat, ilmu umum itu dunia','Dalam Islam keduanya tidak dipisah; niat dan penerapan yang menentukan nilai ibadahnya. Ilmu umum yang bermanfaat adalah fardhu kifayah'],
+['Sains selalu bertentangan dengan agama','Pertentangan biasanya muncul dari salah paham teks, teori yang belum mapan, atau pemaksaan sains menjawab pertanyaan di luar wilayahnya'],
+['Cukup belajar ibadah, ilmu lain tidak penting','Tugas khalifah mencakup pengelolaan bumi yang butuh banyak bidang ilmu'],
+['Belajar hanya untuk lulus','Niat yang sempit mengurangi manfaat dan keberkahan ilmu']])}`),
+DT('10. Istilah penting',GL([['Ilmu','Pengetahuan yang benar dan bermanfaat'],['Ayat qauliyah','Tanda Allah berupa firman tertulis (Al-Quran)'],['Ayat kauniyah','Tanda Allah berupa alam semesta dan hukumnya'],['Sunnatullah','Ketetapan Allah yang berlaku tetap di alam'],['Khalifah fi al-ardh','Pengelola bumi yang memegang amanah'],['Fardhu ain','Kewajiban individu'],['Fardhu kifayah','Kewajiban kolektif umat'],['Iqra','Perintah membaca, wahyu pertama']]))
+]);
+
+M[1].x=DEEP([
+DT('1. IPTEKS: ilmu, teknologi, dan seni',`
+<ul class="kp"><li><b>Ilmu pengetahuan</b>: pengetahuan sistematis yang disusun lewat pengamatan, nalar, dan pengujian.</li><li><b>Teknologi</b>: penerapan pengetahuan untuk membuat alat, proses, dan sistem yang memudahkan kehidupan.</li><li><b>Seni</b>: ekspresi keindahan yang lahir dari cita rasa dan keterampilan manusia.</li></ul>
+<p>Ilmu menjawab <i>mengapa dan bagaimana</i>, teknologi menjawab <i>bagaimana membuatnya</i>, seni menjawab <i>bagaimana mengungkapkan keindahannya</i>. Ketiganya dipicu oleh akal dan keterampilan, sehingga ketiganya butuh pedoman nilai.</p>`,true),
+DT('2. Akal dalam Al-Quran',`
+<p>Al-Quran memakai banyak kata untuk aktivitas berpikir. Masing-masing punya nuansa:</p>
+${TB(['Istilah','Makna','Contoh pemakaian'],[
+['Aql (taqilun)','Mengikat dan menimbang dengan nalar','Frasa "apakah kamu tidak berpikir" muncul berulang kali'],
+['Tafakkur','Merenungkan ciptaan untuk menemukan hikmah','Merenungkan langit, bumi, dan diri sendiri'],
+['Tadabbur','Mencermati makna ayat secara mendalam','Membaca Al-Quran dengan penghayatan'],
+['Nazhar','Mengamati dengan teliti','Mengamati unta, langit, gunung, bumi (QS Al-Ghasyiyah)'],
+['Tadzakkur','Mengambil pelajaran dan mengingat','Menjadikan pengalaman sebagai pelajaran']])}
+<p>QS Al-Isra: 36 menegaskan bahwa pendengaran, penglihatan, dan hati semuanya akan dimintai pertanggungjawaban. Artinya, <b>berpikir adalah amanah</b>, bukan hanya hak.</p>`),
+DT('3. Ulul albab: ciri dan teladan',`
+<p><b>Ulul albab</b> berarti orang-orang yang memiliki inti (lubb), yaitu akal yang jernih dan mendalam. Ciri yang disebut Al-Quran:</p>
+<ul class="kp"><li><b>Berzikir sekaligus berpikir</b>: mengingat Allah dalam keadaan berdiri, duduk, dan berbaring, lalu memikirkan penciptaan langit dan bumi (QS Ali Imran: 190-191).</li><li><b>Mengambil pelajaran</b> dari kisah dan peristiwa.</li><li><b>Mendengar berbagai pendapat lalu mengikuti yang terbaik</b> (QS Az-Zumar: 18).</li><li><b>Menyimpulkan dengan rendah hati</b>: setelah merenung, mereka mengaku bahwa ciptaan Allah tidak sia-sia dan memohon perlindungan dari azab.</li></ul>
+<p>Model ulul albab menolak dua ekstrem: ilmuwan yang kehilangan Tuhan dan orang saleh yang meninggalkan nalar.</p>`),
+DT('4. Keterbatasan akal dan peran wahyu',`
+<p>Akal adalah alat hebat tetapi terbatas. Keterbatasannya antara lain:</p>
+<ul class="kp"><li><b>Terbatas informasi</b>: ia hanya menalar dari data yang dimilikinya.</li><li><b>Rentan bias</b>: kepentingan, emosi, dan lingkungan memengaruhi kesimpulan.</li><li><b>Tidak menjangkau yang gaib</b>: hakikat roh, kehidupan setelah mati, dan hal metafisik hanya diketahui lewat wahyu.</li><li><b>Tidak menetapkan nilai final</b>: akal bisa menunjukkan apa yang <i>bisa</i> dibuat, tetapi wahyu memberi pegangan tentang apa yang <i>layak</i> dibuat.</li></ul>
+<p>Karena itu wahyu berfungsi sebagai <b>pembimbing</b>, bukan penghambat. Fungsinya seperti kompas untuk kapal bermesin kuat.</p>`),
+DT('5. Perkembangan IPTEKS secara garis besar',`
+${TB(['Fase','Ciri utama','Catatan bagi muslim'],[
+['Klasik dan abad pertengahan','Penerjemahan dan pengembangan ilmu di banyak peradaban, termasuk peradaban Islam','Ilmu berkembang saat iman bertemu etos riset'],
+['Revolusi ilmiah (abad 16-17)','Metode eksperimen dan matematis menjadi standar','Metode yang selaras dengan ajakan mengamati ciptaan'],
+['Revolusi industri','Mesin, pabrik, energi fosil','Kesejahteraan naik, tetapi muncul eksploitasi dan polusi'],
+['Era digital dan AI','Data, jaringan, kecerdasan buatan','Peluang besar, risiko privasi, hoaks, dan ketergantungan']])}
+<p>Kecepatan perkembangan IPTEKS membuat pertanyaan etika semakin mendesak. Teknologi yang dulu butuh puluhan tahun untuk menyebar kini menjangkau jutaan orang dalam hitungan hari.</p>`),
+DT('6. Dampak positif dan negatif IPTEKS',`
+${TB(['Bidang','Manfaat','Risiko jika tanpa bimbingan nilai'],[
+['Kesehatan','Vaksin, diagnosis dini, operasi aman','Komersialisasi berlebihan, eksperimen tanpa persetujuan'],
+['Informasi','Akses ilmu cepat, dakwah dan pendidikan jarak jauh','Hoaks, perundungan, kecanduan, pelanggaran privasi'],
+['Energi dan lingkungan','Energi bersih, efisiensi','Kerusakan ekosistem bila eksploitasi tidak terkendali'],
+['Pertahanan','Perlindungan warga','Senjata pemusnah massal dan korban sipil'],
+['Ekonomi','Produktivitas, lapangan kerja baru','Kesenjangan, manipulasi pasar']])}
+<p>QS Ar-Rum: 41 mencatat bahwa kerusakan di darat dan laut muncul akibat perbuatan manusia. Ayat ini sering dikutip untuk mengingatkan bahwa dampak buruk teknologi adalah akibat pilihan manusia, bukan kesalahan ilmu itu sendiri.</p>`),
+DT('7. Apakah ilmu bebas nilai?',`
+<p>Ada dua pandangan yang sering dibahas:</p>
+<ul class="kp"><li><b>Bebas nilai</b>: penemuan ilmiah itu netral, dan baik atau buruknya hanya terletak pada pemakaiannya.</li><li><b>Bermuatan nilai</b>: pilihan topik riset, pendanaan, dan metode selalu dipengaruhi nilai.</li></ul>
+<p>Pandangan Islam yang umum dikemukakan: <b>fakta ilmiahnya netral, tetapi seluruh proses dari niat meneliti sampai penerapannya terikat etika</b>. Peneliti bertanggung jawab atas akibat yang bisa diperkirakan dari karyanya.</p>`),
+DT('8. Sikap muslim terhadap IPTEKS',`
+<ul class="kp"><li><b>Tidak anti-IPTEKS</b>: menguasai ilmu adalah bagian dari tugas khalifah.</li><li><b>Tidak sekadar mengikuti</b>: menjadi pencipta dan pengembang, bukan hanya pemakai.</li><li><b>Kritis dan selektif</b>: mengambil yang bermanfaat, menolak yang merusak.</li><li><b>Menyertakan nilai</b>: setiap inovasi diuji dengan pertanyaan halal-haram, manfaat-mudarat, dan keadilan.</li><li><b>Terus belajar</b>: karena bidang yang berubah cepat menuntut pembaruan pengetahuan.</li></ul>`),
+DT('9. Istilah penting',GL([['IPTEKS','Ilmu pengetahuan, teknologi, dan seni'],['Ulul albab','Orang berakal jernih yang menyatukan zikir dan pikir'],['Tafakkur','Merenungkan ciptaan'],['Tadabbur','Mencermati makna ayat'],['Sunnatullah','Hukum alam ketetapan Allah'],['Bebas nilai','Pandangan bahwa ilmu netral dari nilai'],['Mafsadat','Kerusakan, mudarat'],['Maslahat','Kebaikan, manfaat']]))
+]);
+
+M[2].x=DEEP([
+DT('1. Tiga cara mengetahui: wahyu, filsafat, sains',`
+${TB(['Aspek','Wahyu (agama)','Filsafat','Sains'],[
+['Sumber','Firman Allah dan sunnah sahih','Akal dan penalaran','Pengamatan dan percobaan'],
+['Sifat kebenaran','Absolut, pasti','Rasional, bisa diperdebatkan','Empiris, bisa direvisi bila ada bukti baru'],
+['Pertanyaan khas','Untuk apa hidup? Apa yang benar dan salah?','Apa hakikat sesuatu? Bagaimana berpikir benar?','Bagaimana alam bekerja? Seberapa besar? Seberapa sering?'],
+['Metode','Penerimaan teks dan pemahaman (tafsir)','Analisis, argumen, refleksi','Hipotesis, data, pengujian'],
+['Keterbatasan','Perlu pemahaman yang tepat atas teks','Kesimpulan bergantung pada premis','Tidak menjawab soal nilai dan makna']])}
+<p>Tabel ini memperlihatkan bahwa ketiganya <b>bukan pesaing</b>. Masing-masing menjawab jenis pertanyaan yang berbeda.</p>`,true),
+DT('2. Tiga cabang filsafat ilmu',`
+<ul class="kp"><li><b>Ontologi</b>: apa yang ada dan apa hakikat objek yang dikaji? Contoh: apakah realitas hanya yang terindra, atau ada dimensi gaib?</li><li><b>Epistemologi</b>: bagaimana pengetahuan diperoleh dan dibuktikan? Contoh: seberapa besar peran wahyu, akal, dan indra?</li><li><b>Aksiologi</b>: untuk apa ilmu dipakai dan nilai apa yang mengaturnya? Contoh: batas etis eksperimen.</li></ul>
+<p>Sains modern yang sekuler cenderung membatasi ontologi pada yang terindra, epistemologi pada metode empiris, dan aksiologi pada kepentingan praktis. Paradigma tauhid memperluas ketiganya: realitas meliputi yang gaib, sumber pengetahuan meliputi wahyu, dan tujuan ilmu terikat nilai ilahi.</p>`),
+DT('3. Paradigma tauhid',`
+<p>Tauhid bukan hanya soal ibadah, melainkan <b>kerangka berpikir</b>: karena Tuhan satu, sumber kebenaran pun satu, dan seluruh cabang pengetahuan bermuara kepada-Nya. Implikasinya:</p>
+<ul class="kp"><li>Tidak ada dikotomi mutlak antara ilmu agama dan ilmu umum.</li><li>Kebenaran wahyu dan kebenaran ilmiah yang sahih tidak bisa saling meniadakan.</li><li>Setiap ilmu bisa menjadi jalan mengenal Allah bila dipelajari dengan niat yang benar.</li><li>Ilmuwan memandang dirinya sebagai pembaca ayat kauniyah, bukan penguasa alam.</li></ul>`),
+DT('4. Pola hubungan ketiganya',`
+<p>Dalam paradigma tauhid, hubungan ketiganya bersifat timbal balik:</p>
+<ul class="kp"><li><b>Wahyu memberi arah dan makna</b> bagi filsafat dan sains: tujuan, batas, dan nilai.</li><li><b>Filsafat memberi landasan berpikir</b>: logika, kerangka konsep, dan kritik terhadap asumsi.</li><li><b>Sains memberi data dan penjelasan</b> tentang cara kerja ciptaan sehingga memperkaya pemahaman terhadap wahyu.</li><li><b>Pemahaman wahyu diperdalam</b> oleh ilmu, dan <b>sains dijaga</b> oleh nilai wahyu.</li></ul>
+<div class="quote">Wahyu menjawab untuk apa. Filsafat menjawab apa dan mengapa secara konsep. Sains menjawab bagaimana secara terukur.<small>Rumusan ringkas untuk mengingat pembagian peran</small></div>`),
+DT('5. Tiga pendekatan epistemologi: bayani, burhani, irfani',`
+<p>Dalam kajian epistemologi Islam kontemporer, sering digunakan tiga pendekatan (antara lain dibahas oleh Muhammad Abid al-Jabiri):</p>
+${TB(['Pendekatan','Bertumpu pada','Ciri'],[
+['Bayani','Teks (Al-Quran dan hadis) dan kaidah kebahasaan','Menjelaskan dan menafsirkan teks, menarik hukum'],
+['Burhani','Akal dan pengalaman empiris','Demonstrasi logis dan pembuktian ilmiah'],
+['Irfani','Pengalaman batin dan penyucian jiwa','Kepekaan spiritual yang melengkapi nalar']])}
+<p>Penggunaan ketiganya secara seimbang menghindarkan tiga penyakit: tekstualisme sempit, rasionalisme kering, dan klaim spiritual tanpa dasar.</p>`),
+DT('6. Empat model hubungan sains dan agama',`
+<p>Ian Barbour merangkum model yang sering dipakai untuk membaca hubungan sains dan agama:</p>
+${TB(['Model','Inti','Penilaian singkat'],[
+['Konflik','Sains dan agama saling menegasikan','Muncul dari ekstrem ateisme ilmiah atau literalisme sempit; tidak sejalan dengan paradigma tauhid'],
+['Independensi','Keduanya wilayah terpisah dan tidak saling bertemu','Menghindari konflik tetapi memutus dialog'],
+['Dialog','Keduanya saling bertanya dan memberi masukan','Membuka ruang temu pada pertanyaan batas'],
+['Integrasi','Keduanya disatukan dalam satu kerangka pandang','Paling dekat dengan paradigma tauhid']])}`),
+DT('7. Contoh penerapan: ilmu falak, hisab, dan rukyat',`
+<p>Penentuan awal bulan hijriah, waktu salat, dan arah kiblat memperlihatkan integrasi ketiganya sekaligus:</p>
+<ul class="kp"><li><b>Wahyu</b> menetapkan kewajiban dan pedoman (salat pada waktunya, puasa Ramadan, menghadap kiblat).</li><li><b>Sains</b> (astronomi) menghitung posisi matahari dan bulan untuk menetapkan waktunya secara akurat.</li><li><b>Filsafat dan metodologi</b> membahas bagaimana menimbang hisab dan rukyat, kriteria visibilitas, serta bagaimana menyatukan umat.</li></ul>`),
+DT('8. Waspada cocokologi',`
+<p><b>Cocokologi</b> adalah kecenderungan memaksakan ayat agar cocok dengan teori sains tertentu. Bahayanya: teori ilmiah bisa direvisi, dan bila ayat diikatkan pada satu teori, runtuhnya teori itu dikira meruntuhkan wahyu.</p>
+<ul class="kp"><li>Bedakan <b>fakta teramati</b>, <b>teori</b>, dan <b>tafsir</b>.</li><li>Jadikan sains alat memahami ayat yang berbicara tentang alam, bukan alat membenarkan klaim yang dipaksakan.</li><li>Akui bila suatu pertanyaan belum terjawab.</li></ul>`),
+DT('9. Istilah penting',GL([['Ontologi','Kajian tentang hakikat yang ada'],['Epistemologi','Kajian tentang sumber dan cara memperoleh pengetahuan'],['Aksiologi','Kajian tentang nilai dan tujuan ilmu'],['Bayani','Pendekatan berbasis teks'],['Burhani','Pendekatan berbasis akal dan bukti'],['Irfani','Pendekatan berbasis pengalaman batin'],['Dikotomi','Pemisahan tegas dua hal'],['Cocokologi','Memaksa kecocokan ayat dengan teori sains']]))
+]);
+
+M[3].x=DEEP([
+DT('1. Apa itu iman?',`
+<p>Menurut pengertian umum para ulama, <b>iman</b> mencakup tiga unsur: membenarkan dengan hati (<i>tashdiq</i>), mengikrarkan dengan lisan (<i>iqrar</i>), dan membuktikan dengan perbuatan (<i>amal</i>). Rukunnya enam: iman kepada Allah, malaikat, kitab-kitab, rasul-rasul, hari akhir, dan takdir.</p>
+<p>Iman bukan hanya keyakinan pasif. Ia memberi <b>tujuan hidup</b>, <b>kompas moral</b>, dan <b>rasa pertanggungjawaban</b> yang menjadi dasar semua tindakan, termasuk dalam aktivitas ilmiah.</p>`,true),
+DT('2. Iman dan ilmu saling menumbuhkan',`
+<ul class="kp"><li><b>Ilmu memperkuat iman</b>: QS Fathir: 28 menyatakan yang paling takut kepada Allah adalah para ulama (orang berilmu). Semakin mengenal kerumitan dan keteraturan ciptaan, semakin tumbuh kekaguman kepada Penciptanya.</li><li><b>Iman mendorong ilmu</b>: keyakinan bahwa alam adalah ciptaan yang teratur menjadi alasan untuk mengamatinya dengan sungguh-sungguh dan jujur.</li><li><b>Iman menjaga ilmu</b>: kesadaran diawasi Allah membuat peneliti tetap jujur meski tidak ada yang mengawasi.</li></ul>`),
+DT('3. Ilmu tanpa iman: buta arah',`
+<p>Ilmu tanpa iman memberi kekuatan tanpa kompas. Pengetahuan teknis tinggi bisa dipakai untuk apa saja, termasuk untuk merugikan orang lain. Gejala yang tampak:</p>
+<ul class="kp"><li><b>Kesombongan intelektual</b>: contohnya Qarun dalam QS Al-Qashash: 78 yang mengaku memperoleh kekayaan semata karena ilmu yang ada padanya.</li><li><b>Penyalahgunaan keahlian</b>: penipuan siber, manipulasi data, produk yang berbahaya demi untung.</li><li><b>Hilangnya batas</b>: segala yang mungkin secara teknis dianggap boleh.</li><li><b>Kekosongan makna</b>: pintar tetapi gelisah karena tidak tahu tujuan.</li></ul>`),
+DT('4. Iman tanpa ilmu: lemah',`
+<p>Iman yang tidak ditopang ilmu mudah goyah dan mudah dimanfaatkan. Gejalanya:</p>
+<ul class="kp"><li><b>Mudah termakan hoaks</b> atas nama agama karena tidak terbiasa memeriksa sumber.</li><li><b>Taklid buta dan fanatisme</b> terhadap tokoh atau kelompok.</li><li><b>Salah beribadah</b> karena tidak tahu tata caranya.</li><li><b>Tertinggal</b>: sulit memberi solusi bagi persoalan nyata seperti kesehatan, pangan, atau teknologi, sehingga umat bergantung kepada pihak lain.</li></ul>`),
+DT('5. Akhlak: wujud nyata iman dan ilmu',`
+<p><b>Akhlak</b> (<i>khuluq</i>) adalah keadaan jiwa yang melahirkan perbuatan secara spontan tanpa banyak pertimbangan. QS Al-Qalam: 4 memuji Nabi Muhammad sebagai pemilik akhlak yang agung. Dalam hadis riwayat Ahmad, beliau menyatakan diutus untuk menyempurnakan akhlak mulia.</p>
+${TB(['Ranah akhlak','Contoh dalam kehidupan ilmiah dan sehari-hari'],[
+['Kepada Allah','Ikhlas, bersyukur, tawakal setelah berusaha, merasa diawasi'],
+['Kepada sesama manusia','Jujur, adil, menghormati, menyebarkan manfaat, tidak menyakiti'],
+['Kepada alam','Tidak boros, tidak merusak, menjaga keseimbangan'],
+['Kepada diri sendiri','Disiplin, menjaga kesehatan dan akal, terus belajar']])}`),
+DT('6. Akhlak dalam dunia akademik dan riset',`
+<ul class="kp"><li><b>Kejujuran ilmiah</b>: tidak memalsukan data (falsifikasi), tidak mengarang data (fabrikasi), tidak menjiplak (plagiarisme).</li><li><b>Amanah</b>: menyebutkan sumber, menjaga kerahasiaan data responden, melaporkan hasil apa adanya.</li><li><b>Tabayyun</b>: QS Al-Hujurat: 6 mengajarkan memeriksa kebenaran berita dari sumber yang tidak jelas sebelum bertindak atau menyebarkannya.</li><li><b>Rendah hati</b>: mengakui keterbatasan dan menerima kritik.</li><li><b>Kolaborasi</b>: memberi pengakuan kepada kontribusi orang lain.</li><li><b>Tanggung jawab sosial</b>: mempertimbangkan akibat hasil riset bagi masyarakat.</li></ul>`),
+DT('7. Model pohon: akar, batang, buah',`
+<p>QS Ibrahim: 24-25 mengumpamakan kalimat yang baik seperti pohon yang baik: akarnya kuat, cabangnya menjulang ke langit, dan berbuah setiap saat. Perumpamaan ini bisa dipakai untuk menggambarkan kesatuan ketiganya:</p>
+${TB(['Bagian pohon','Mewakili','Fungsi'],[['Akar','Iman','Menancapkan keyakinan, menopang seluruh pohon'],['Batang dan cabang','Ilmu','Tumbuh tinggi dan meluas, menyalurkan nutrisi'],['Buah','Akhlak','Hasil yang dirasakan orang lain']])}
+<p>Pohon dengan akar lemah mudah tumbang. Pohon tanpa batang tidak berbuah. Pohon tanpa buah tidak memberi manfaat bagi orang lain.</p>`),
+DT('8. Ilmu yang bermanfaat sebagai amal jariyah',`
+<p>Hadis riwayat Muslim menyebutkan bahwa ketika seseorang meninggal, terputus amalnya kecuali tiga: sedekah jariyah, ilmu yang bermanfaat, dan anak saleh yang mendoakannya. Ilmu yang diamalkan dan diajarkan terus mengalirkan pahala bagi pemiliknya. Karena itu menulis, mengajar, dan meneliti dengan niat benar bernilai panjang.</p>`),
+DT('9. Studi kasus untuk mahasiswa',`
+${TB(['Situasi','Pertimbangan iman, ilmu, akhlak'],[
+['Memakai AI untuk menyelesaikan tugas','Ilmu: manfaatkan sebagai alat belajar. Akhlak: jujur menyatakan bantuan yang dipakai dan memahami hasilnya sendiri. Iman: sadar bahwa nilai yang diperoleh dengan curang tidak berkah'],
+['Menemukan berita heboh di grup','Tabayyun dulu: periksa sumber dan tanggal sebelum membagikan'],
+['Data penelitian tidak sesuai harapan','Laporkan apa adanya. Mengubah data berarti khianat terhadap amanah ilmu'],
+['Diminta teman menyalin laporan','Menolak dengan cara baik dan menawarkan membantu memahami materinya']])}`),
+DT('10. Istilah penting',GL([['Iman','Pembenaran hati, ikrar lisan, amal anggota badan'],['Akhlak','Karakter yang melahirkan perbuatan secara spontan'],['Tabayyun','Memeriksa kebenaran informasi'],['Amanah','Tanggung jawab yang dipercayakan'],['Taklid buta','Mengikuti tanpa memahami dasar'],['Plagiarisme','Mengambil karya orang lain tanpa menyebut sumber'],['Falsifikasi','Mengubah data agar sesuai keinginan'],['Fabrikasi','Mengarang data yang tidak pernah ada']]))
+]);
+
+M[4].x=DEEP([
+DT('1. Etika, moral, dan akhlak',`
+<p><b>Etika</b> adalah kajian kritis tentang baik dan buruk perbuatan. <b>Moral</b> adalah norma yang berlaku dalam masyarakat. <b>Akhlak</b> dalam Islam bersumber dari wahyu, sedangkan etika filosofis bersumber dari nalar. Dalam konteks ilmu, <b>etika ilmu</b> adalah seperangkat pedoman yang mengatur apa yang boleh dan tidak boleh dilakukan ilmuwan dalam meneliti dan menerapkan hasilnya.</p>
+<p>Pertanyaan pokok etika ilmu: apakah penelitian ini perlu, aman, adil, dan memberi manfaat? Siapa yang menanggung risikonya?</p>`,true),
+DT('2. Maqashid as-Syariah: pengertian dan tokoh',`
+<p><b>Maqashid</b> berarti tujuan-tujuan. <b>Maqashid as-Syariah</b> adalah tujuan luhur di balik hukum-hukum syariat, yaitu mewujudkan kemaslahatan dan mencegah kerusakan bagi manusia. Pembahasannya dikembangkan oleh ulama antara lain <b>Al-Ghazali</b> (merumuskan lima pokok yang dilindungi), <b>Asy-Syatibi</b> (menyusun pembahasan secara sistematis dalam karyanya al-Muwafaqat), dan <b>Ibnu Asyur</b> (mengembangkannya untuk konteks yang lebih luas).</p>
+<p>Fungsinya dalam ilmu: Maqashid menjadi <b>kompas penilaian</b>. Setiap penelitian dan teknologi bisa dinilai dari apakah ia menjaga atau merusak lima hal yang dilindungi syariat.</p>`),
+DT('3. Tiga tingkat kebutuhan',`
+${TB(['Tingkat','Arti','Contoh dalam teknologi'],[
+['Dharuriyyat (primer)','Kebutuhan mutlak; jika hilang, kehidupan runtuh','Obat dan vaksin yang aman, air bersih, keamanan pangan'],
+['Hajiyyat (sekunder)','Kebutuhan yang menghilangkan kesulitan','Transportasi umum, internet untuk belajar'],
+['Tahsiniyyat (tersier)','Penyempurna dan keindahan','Desain antarmuka yang indah, seni digital']])}
+<p>Prioritas ditentukan dari yang primer. Teknologi hiburan tidak boleh mengorbankan keselamatan jiwa.</p>`),
+DT('4. Lima pokok perlindungan dan penerapannya pada ilmu',`
+${TB(['Pokok','Istilah','Makna','Pertanyaan uji untuk sebuah inovasi'],[
+['Agama','Hifz ad-din','Menjaga keyakinan dan kebebasan beribadah','Apakah ia melemahkan keyakinan atau menghalangi ibadah?'],
+['Jiwa','Hifz an-nafs','Menjaga keselamatan dan martabat manusia','Apakah ia membahayakan nyawa, kesehatan, atau martabat orang?'],
+['Akal','Hifz al-aql','Menjaga kemampuan berpikir dan kebenaran informasi','Apakah ia merusak nalar atau menyebarkan kebohongan?'],
+['Keturunan','Hifz an-nasl','Menjaga kelangsungan dan kehormatan generasi','Apakah ia membahayakan generasi mendatang atau keluarga?'],
+['Harta','Hifz al-mal','Menjaga kepemilikan dan keadilan ekonomi','Apakah ia memungkinkan penipuan atau pencurian, atau membuang sumber daya?']])}`),
+DT('5. Rahmatan lil alamin',`
+<p>QS Al-Anbiya: 107 menyebut bahwa Nabi Muhammad diutus sebagai rahmat bagi semesta alam. Kata <i>alamin</i> (semesta) meliputi manusia, makhluk hidup lain, dan lingkungan. Dalam pengembangan ilmu, ini berarti:</p>
+<ul class="kp"><li>Manfaat harus dirasakan <b>luas</b>, bukan hanya oleh pemilik modal atau kelompok tertentu.</li><li>Dampak pada <b>lingkungan dan makhluk lain</b> ikut dihitung.</li><li>Generasi mendatang punya hak atas bumi yang masih layak huni.</li><li>Kebijakan yang menimbulkan kerusakan besar tidak bisa dibenarkan hanya karena menguntungkan sebagian pihak.</li></ul>
+<p>Hadis riwayat Ibnu Majah dan Ahmad merumuskan prinsip: tidak boleh ada mudarat dan tidak boleh saling memudaratkan. Prinsip ini menjadi dasar banyak kaidah fikih tentang pencegahan bahaya.</p>`),
+DT('6. Kaidah fikih yang relevan',`
+${TB(['Kaidah','Arti','Penerapan'],[
+['Mudarat harus dihilangkan','Bahaya harus dicegah dan diatasi','Menarik produk yang terbukti membahayakan'],
+['Menolak kerusakan didahulukan daripada meraih manfaat','Jika bertabrakan, cegah mafsadat lebih dulu','Menunda teknologi yang risikonya besar sampai aman'],
+['Kesulitan mendatangkan kemudahan','Syariat meringankan saat ada kesulitan nyata','Dasar pemanfaatan teknologi yang membantu ibadah dan kehidupan'],
+['Hukum asal muamalah adalah boleh','Dalam urusan duniawi, sesuatu boleh kecuali ada dalil yang melarang','Teknologi baru pada dasarnya boleh dikaji dan dimanfaatkan selama tidak melanggar larangan']])}
+<p>Rumusan kaidah bisa sedikit berbeda antarbuku. Pakailah redaksi dari buku ajar dosen saat menjawab ujian.</p>`),
+DT('7. Alat bantu: lima pertanyaan uji Maqashid',`
+<ol class="kp" style="list-style:decimal;padding-left:24px"><li>Apakah teknologi ini membantu atau merusak keyakinan dan ibadah?</li><li>Apakah ia melindungi atau membahayakan nyawa dan martabat manusia?</li><li>Apakah ia mencerdaskan atau menyesatkan nalar?</li><li>Apakah ia menjaga atau membahayakan generasi dan keluarga?</li><li>Apakah ia adil secara ekonomi dan menjaga hak milik?</li></ol>
+<p>Lalu tutup dengan pertanyaan keenam: <b>apakah dampaknya menjadi rahmat bagi lingkungan dan seluruh makhluk?</b> Daftar ini alat bantu belajar, bukan fatwa. Putusan hukum atas persoalan baru tetap memerlukan kajian ulama bersama para ahli bidangnya.</p>`),
+DT('8. Studi kasus: menimbang teknologi dengan Maqashid',`
+${TB(['Teknologi','Potensi manfaat','Risiko yang perlu dijaga','Arah sikap'],[
+['AI generatif','Belajar, penerjemahan, produktivitas','Hoaks, plagiarisme, kebocoran data, ketergantungan berpikir','Pakai sebagai alat bantu, verifikasi hasil, jaga data, jujur menyebut penggunaan'],
+['Rekayasa genetika tanaman','Hasil panen tinggi, tahan hama','Dampak ekologis jangka panjang, monopoli benih','Kaji dampak sebelum luas, awasi ketat, lindungi petani kecil'],
+['Vaksin dan obat','Menyelamatkan jiwa dan mencegah wabah','Efek samping, ketimpangan akses','Dukung uji ketat dan pemerataan akses'],
+['Energi nuklir','Listrik berskala besar rendah emisi','Kecelakaan dan limbah jangka panjang','Perlu pengelolaan sangat ketat dan transparan'],
+['Data pribadi dan pengawasan digital','Layanan yang dipersonalisasi, keamanan','Pelanggaran privasi, penyalahgunaan, penipuan','Perlu persetujuan jelas dan perlindungan data']])}
+<p>Tabel ini contoh cara menalar. Kesimpulan akhir untuk kasus nyata memerlukan data terbaru dan rujukan ulama serta ahli.</p>`),
+DT('9. Tanggung jawab ilmuwan dan insinyur muslim',`
+<ul class="kp"><li>Meneliti dengan jujur, terbuka terhadap koreksi, dan menjaga keselamatan subjek penelitian.</li><li>Menimbang akibat penerapan karya sebelum mempublikasikan atau memproduksinya.</li><li>Tidak menyembunyikan risiko yang diketahui.</li><li>Menjadikan ilmu sarana ibadah dan pelayanan bagi masyarakat.</li><li>Ikut menyusun dan menaati kode etik profesi.</li></ul>`),
+DT('10. Istilah penting',GL([['Maqashid as-Syariah','Tujuan-tujuan pokok syariat'],['Dharuriyyat','Kebutuhan primer'],['Hajiyyat','Kebutuhan sekunder'],['Tahsiniyyat','Kebutuhan penyempurna'],['Hifz ad-din / an-nafs / al-aql / an-nasl / al-mal','Menjaga agama / jiwa / akal / keturunan / harta'],['Rahmatan lil alamin','Rahmat bagi semesta'],['Maslahat','Manfaat, kebaikan'],['Mafsadat','Kerusakan, bahaya']]))
+]);
+
+/* ---------- simulasi UTS ---------- */
+var XQ=[
+["Pernyataan yang paling tepat tentang hubungan ayat qauliyah dan ayat kauniyah adalah...",["Keduanya bertentangan sehingga harus dipilih salah satu","Keduanya tanda dari Allah yang sama sehingga tidak bertentangan secara hakiki","Ayat kauniyah lebih benar daripada ayat qauliyah","Ayat qauliyah menggantikan kebutuhan mengamati alam"],1,"Keduanya bersumber dari Allah. Bila tampak bertentangan, periksa pemahaman teks atau validitas teori ilmiahnya.",1],
+["Wahyu pertama (QS Al-Alaq: 1-5) menekankan...",["Perintah berperang","Perintah membaca atas nama Tuhan yang menciptakan","Larangan berdagang","Perintah berpuasa"],1,"Wahyu pertama dibuka dengan iqra, fondasi tradisi ilmiah yang berlandaskan tauhid.",1],
+["Ilmu yang wajib dipelajari setiap muslim sesuai kemampuannya, seperti rukun iman dan tata cara salat, disebut...",["Fardhu kifayah","Fardhu ain","Sunnah","Mubah"],1,"Fardhu ain mengikat setiap individu. Fardhu kifayah mengikat umat secara kolektif dan gugur bila sebagian sudah memenuhinya.",1],
+["Makna khalifah fi al-ardh yang paling tepat adalah...",["Penguasa mutlak atas bumi","Pengelola yang diberi amanah memakmurkan bumi sesuai petunjuk Allah","Orang yang hanya beribadah ritual","Pemilik sumber daya alam"],1,"Khalifah memegang amanah, bukan kepemilikan mutlak, dan wajib berilmu serta adil dalam mengelola.",1],
+["Ulul albab dalam QS Ali Imran: 190-191 digambarkan sebagai orang yang...",["Berpikir tanpa mengingat Allah","Mengingat Allah dan memikirkan penciptaan langit dan bumi","Meninggalkan penalaran","Hanya mengandalkan hafalan"],1,"Ulul albab menyatukan zikir dan pikir.",2],
+["Risiko utama akal yang tidak dibimbing wahyu adalah...",["Akal berhenti bekerja","Arah dan batas etika hilang sehingga teknologi mudah merusak","Ilmu menjadi tidak berkembang sama sekali","Wahyu kehilangan kebenarannya"],1,"Akal bisa menunjukkan apa yang bisa dibuat, tetapi wahyu memberi pegangan tentang apa yang layak dibuat.",2],
+["IPTEKS adalah singkatan dari...",["Ilmu pengetahuan, teknologi, dan seni","Ilmu pasti, teknik, ekonomi, kesehatan, sosial","Ilmu pengetahuan, teknik, kesehatan, sosial","Ilmu pengetahuan, teologi, etika, kesenian, sains"],0,"IPTEKS memuat ilmu pengetahuan, teknologi, dan seni.",2],
+["Sikap yang paling tepat bagi muslim terhadap perkembangan IPTEKS adalah...",["Menolak semuanya","Menerima semuanya tanpa seleksi","Kritis dan selektif: mengambil manfaat dan menolak mudarat","Hanya memakai produk lama"],2,"Muslim tidak anti IPTEKS dan tidak membebek, melainkan menyaring dengan nilai.",2],
+["Cabang filsafat ilmu yang membahas cara memperoleh dan membuktikan pengetahuan adalah...",["Ontologi","Aksiologi","Epistemologi","Estetika"],2,"Ontologi membahas hakikat yang ada, epistemologi cara memperoleh pengetahuan, aksiologi nilai dan tujuan ilmu.",3],
+["Sifat sumber pengetahuan dalam paradigma tauhid adalah...",["Wahyu rasional, filsafat absolut, sains empiris","Wahyu absolut, filsafat rasional, sains empiris","Wahyu empiris, filsafat absolut, sains rasional","Semuanya absolut"],1,"Wahyu absolut, filsafat rasional, sains empiris, dan ketiganya saling melengkapi.",3],
+["Pendekatan bayani dalam epistemologi Islam bertumpu pada...",["Eksperimen laboratorium","Pengalaman batin semata","Teks dan kaidah kebahasaan","Statistik"],2,"Bayani bertumpu pada teks, burhani pada akal dan bukti empiris, irfani pada pengalaman batin.",3],
+["Model hubungan sains dan agama yang menyatukan keduanya dalam satu kerangka pandang disebut...",["Konflik","Independensi","Dialog","Integrasi"],3,"Integrasi paling dekat dengan paradigma tauhid.",3],
+["Ungkapan \"ilmu tanpa iman buta\" berarti ilmu tanpa iman...",["Membuat orang mudah beribadah","Kehilangan arah dan mudah disalahgunakan","Pasti salah","Tidak bisa dipelajari"],1,"Tanpa iman, ilmu menjadi kekuatan tanpa kompas.",4],
+["Dalam perumpamaan pohon (QS Ibrahim: 24-25) yang dipakai untuk menjelaskan kesatuan iman, ilmu, akhlak, akhlak diumpamakan sebagai...",["Akar","Buah","Batang","Tanah"],1,"Akar mewakili iman, batang dan cabang mewakili ilmu, buah mewakili akhlak.",4],
+["Menyalin karya orang lain tanpa menyebut sumber adalah pelanggaran terhadap nilai...",["Kreativitas","Kejujuran dan amanah ilmiah","Kecepatan","Efisiensi"],1,"Plagiarisme melanggar kejujuran dan amanah dalam keilmuan.",4],
+["Tabayyun menurut QS Al-Hujurat: 6 berarti...",["Menyebarkan berita secepatnya","Memeriksa kebenaran informasi sebelum bertindak atau menyebarkan","Mengabaikan semua berita","Menunggu perintah"],1,"Tabayyun adalah verifikasi informasi.",4],
+["Lima tujuan pokok Maqashid as-Syariah adalah...",["Agama, jiwa, akal, keturunan, harta","Agama, kekuasaan, akal, harta, ilmu","Jiwa, jabatan, harta, ilmu, seni","Agama, ekonomi, politik, hukum, seni"],0,"Lima pokok: agama, jiwa, akal, keturunan, harta.",5],
+["Penelitian zat adiktif untuk dikonsumsi bebas terutama bertentangan dengan perlindungan...",["Harta","Akal","Agama","Keturunan"],1,"Zat adiktif merusak kemampuan berpikir sehingga bertentangan dengan hifz al-aql (dan juga membahayakan jiwa).",5],
+["Orientasi akhir pengembangan ilmu dalam Islam adalah...",["Keuntungan sebesar-besarnya","Rahmatan lil alamin, rahmat bagi seluruh alam","Popularitas peneliti","Kecepatan inovasi"],1,"Manfaat harus dirasakan luas, termasuk oleh lingkungan dan makhluk lain.",5],
+["Tingkat maqashid yang jika hilang meruntuhkan kehidupan disebut...",["Dharuriyyat","Hajiyyat","Tahsiniyyat","Kamaliyyat"],0,"Dharuriyyat adalah kebutuhan primer. Hajiyyat sekunder, tahsiniyyat penyempurna.",5]
+];
+var XE=[
+{m:"Modul 1 dan 2",q:"Jelaskan perbedaan ayat qauliyah dan ayat kauniyah, serta kaitannya dengan kewajiban manusia sebagai khalifah fi al-ardh untuk menuntut ilmu. Berikan contoh.",
+ pts:["Ayat qauliyah: firman Allah yang tertulis (Al-Quran)","Ayat kauniyah: tanda Allah di alam semesta dan hukum-hukumnya, disertai contoh","Keduanya berasal dari Allah, saling melengkapi, dan tidak bertentangan secara hakiki","Khalifah fi al-ardh diberi amanah memakmurkan bumi sehingga wajib menuntut ilmu","Dalil atau rujukan, misalnya QS Al-Alaq: 1-5 atau QS Al-Baqarah: 30-31"],
+ a:"Ayat qauliyah adalah firman Allah yang tertulis dalam Al-Quran, sedangkan ayat kauniyah adalah tanda-tanda kebesaran Allah di alam semesta berikut hukum yang mengaturnya, misalnya pergantian siang dan malam atau struktur tubuh manusia. Keduanya berasal dari Allah sehingga tidak bertentangan secara hakiki dan saling melengkapi: Al-Quran memberi arah dan nilai, ilmu mempelajari alam secara terukur. Manusia diangkat sebagai khalifah fi al-ardh (QS Al-Baqarah: 30) yang diberi amanah mengelola dan memakmurkan bumi. Amanah itu tidak bisa dijalankan tanpa ilmu, karena itu menuntut ilmu wajib bagi muslim, sebagaimana wahyu pertama dibuka dengan perintah membaca (QS Al-Alaq: 1-5). Contoh: ilmu astronomi menghitung posisi matahari untuk menentukan waktu salat yang diperintahkan Al-Quran."},
+{m:"Modul 3 dan 4",q:"Jelaskan hubungan wahyu, filsafat, dan sains dalam paradigma tauhid, lalu kaitkan dengan kesatuan iman, ilmu, dan akhlak.",
+ pts:["Wahyu bersifat absolut, filsafat rasional, sains empiris","Ketiganya saling melengkapi karena berasal dari satu sumber kebenaran (tauhid)","Ilmu tanpa iman buta, iman tanpa ilmu lemah","Akhlak adalah buah dari iman dan ilmu","Contoh penerapan, misalnya kejujuran ilmiah atau tabayyun"],
+ a:"Dalam paradigma tauhid, wahyu bersifat absolut dan memberi arah serta nilai, filsafat bersifat rasional dan memberi landasan berpikir, sedangkan sains bersifat empiris dan menjelaskan cara kerja alam secara terukur. Karena kebenaran bersumber dari Allah yang satu, ketiganya saling melengkapi dan bukan bertentangan: wahyu menjaga arah, filsafat menjaga kerangka berpikir, sains menyediakan data. Kesatuan itu juga tampak pada iman, ilmu, dan akhlak. Ilmu tanpa iman buta arah dan mudah disalahgunakan, sedangkan iman tanpa ilmu lemah dan mudah terjebak hoaks atau taklid. Akhlak adalah buah dari keduanya. Contohnya peneliti yang jujur melaporkan data apa adanya dan memeriksa informasi lebih dulu (tabayyun) sebelum menyebarkannya."},
+{m:"Modul 5",q:"Pilih satu teknologi (misalnya kecerdasan buatan generatif) dan analisis dengan lima tujuan Maqashid as-Syariah. Simpulkan bagaimana pengembangannya yang berorientasi rahmatan lil alamin.",
+ pts:["Menyebut lima tujuan: agama, jiwa, akal, keturunan, harta","Menjelaskan manfaat teknologi yang dipilih","Menjelaskan minimal tiga risiko yang dikaitkan dengan maqashid tertentu","Menyimpulkan pedoman penggunaan atau pengembangan yang bertanggung jawab","Mengaitkan dengan rahmatan lil alamin (manfaat luas, lingkungan, keadilan)"],
+ a:"Contoh: kecerdasan buatan generatif. Manfaatnya besar: membantu belajar, penerjemahan, dan produktivitas. Analisis maqashid: (1) Hifz ad-din, informasi keagamaan yang dihasilkan bisa keliru sehingga harus diverifikasi ke sumber yang sahih. (2) Hifz an-nafs, saran kesehatan yang salah bisa membahayakan jiwa. (3) Hifz al-aql, hoaks dan ketergantungan berpikir dapat merusak nalar. (4) Hifz an-nasl, konten yang tidak pantas dan perundungan membahayakan generasi muda. (5) Hifz al-mal, risiko penipuan, pelanggaran hak cipta, dan kebocoran data pribadi. Kesimpulan: teknologi ini boleh dimanfaatkan sebagai alat bantu bila disertai verifikasi, kejujuran menyebut penggunaan, perlindungan data, dan regulasi yang adil. Dengan demikian pengembangannya berorientasi rahmatan lil alamin: manfaat dirasakan luas, risiko ditekan, dan lingkungan serta kelompok rentan ikut dilindungi."}
+];
+var EX={on:false,left:0,tm:null,perm:[],ans:[],total:45*60};
+function shuffle(a){var r=a.slice();for(var i=r.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=r[i];r[i]=r[j];r[j]=t;}return r;}
+function fmt(sec){var m=Math.floor(sec/60),s=sec%60;return (m<10?"0":"")+m+":"+(s<10?"0":"")+s;}
+function exStop(){if(EX.tm){clearInterval(EX.tm);EX.tm=null;}EX.on=false;}
+function viewExamIntro(){
+  exStop();
+  $("#view").innerHTML='<div class="view"><div class="m-no" style="color:var(--cy)">SIMULASI UTS</div><h1 class="m-h" style="color:var(--cy);text-shadow:0 0 12px rgba(0,240,255,.6)">Ruang Ujian</h1>'+
+  '<p class="m-sub">Latihan penuh dengan suasana ujian: waktu terbatas, soal acak, dan penilaian akhir.</p>'+
+  '<div class="panel cut frame cy"><div class="tag">PARAMETER UJIAN</div><ul class="kp" style="margin-top:10px">'+
+  '<li><b>Waktu</b>: 45 menit. Ujian otomatis dikumpulkan saat waktu habis.</li>'+
+  '<li><b>Bagian A</b>: 20 soal pilihan ganda, urutan pilihan diacak tiap percobaan (bobot 70%).</li>'+
+  '<li><b>Bagian B</b>: 3 soal esai. Tulis jawabanmu, lalu cocokkan dengan kunci dan rubrik poin (bobot 30%).</li>'+
+  '<li><b>Lulus</b>: nilai akhir minimal 60.</li>'+
+  '<li>Soal mencakup kelima modul. Sebaiknya baca semua modul dulu.</li></ul>'+
+  '<p class="mut" style="margin:10px 0 0">Skor terbaik simulasi: <b id="xbest">'+(S.xbest||0)+'</b></p></div>'+
+  '<div class="m-foot"><button type="button" class="btn" id="xgo">Mulai ujian</button></div></div>';
+  $("#xgo").addEventListener("click",function(){SFX.click();startExam();});
+}
+function startExam(){
+  swap(function(){
+    EX.perm=XQ.map(function(q){return shuffle([0,1,2,3]);});
+    EX.ans=XQ.map(function(){return -1;});EX.es=XE.map(function(){return "";});
+    EX.left=EX.total;EX.on=true;renderExam();
+    EX.tm=setInterval(function(){
+      EX.left--;var t=$("#xtime");if(t){t.textContent=fmt(EX.left);t.classList.toggle("warn",EX.left<=300);}
+      if(EX.left<=0){submitExam(true);}
+    },1000);
+  },1);
+}
+function renderExam(){
+  var h='<div class="view"><div class="xbar"><div><div class="tag">SISA WAKTU</div><div class="xtime orb" id="xtime">'+fmt(EX.left)+'</div></div>'+
+   '<div class="xprog"><div class="tag">TERJAWAB <b id="xcnt" style="color:var(--yl);font-weight:400">0</b>/'+XQ.length+'</div><div class="xnav" id="xnav">'+XQ.map(function(_,i){return '<a href="#xq'+i+'" id="xn'+i+'">'+(i+1)+'</a>';}).join("")+'</div></div></div>'+
+   '<div class="m-no" style="color:var(--cy)">BAGIAN A // PILIHAN GANDA</div>';
+  XQ.forEach(function(q,i){
+    h+='<div class="xq panel cut frame" id="xq'+i+'"><div class="tag">SOAL '+(i+1)+' // MODUL '+q[5]+'</div><p class="xqt">'+q[0]+'</p>'+
+    EX.perm[i].map(function(oi,k){return '<button type="button" class="opt" id="xo'+i+'_'+k+'" data-q="'+i+'" data-k="'+k+'"><span class="k">'+"ABCD"[k]+'</span><span>'+q[1][oi]+'</span></button>';}).join("")+'</div>';
+  });
+  h+='<div class="m-no" style="color:var(--mg);margin-top:26px">BAGIAN B // ESAI</div>';
+  XE.forEach(function(e,i){
+    h+='<div class="xq panel cut frame mg"><div class="tag" style="color:var(--mg)">ESAI '+(i+1)+' // '+e.m.toUpperCase()+'</div><p class="xqt">'+e.q+'</p><textarea class="xta" id="xe'+i+'" rows="7" placeholder="Tulis jawabanmu di sini..." aria-label="Jawaban esai '+(i+1)+'"></textarea></div>';
+  });
+  h+='<div class="m-foot"><button type="button" class="btn ghost" id="xcancel">Batalkan ujian</button><button type="button" class="btn" id="xsub">Kumpulkan jawaban</button></div></div>';
+  $("#view").innerHTML=h;
+  $$(".opt[data-q]").forEach(function(b){b.addEventListener("click",function(){
+    var q=+b.dataset.q,k=+b.dataset.k;SFX.click();EX.ans[q]=k;
+    for(var j=0;j<4;j++){$("#xo"+q+"_"+j).classList.toggle("sel",j===k);}
+    $("#xn"+q).classList.add("done");
+    $("#xcnt").textContent=EX.ans.filter(function(a){return a>=0;}).length;
+  });});
+  $$(".xta").forEach(function(t,i){t.addEventListener("input",function(){EX.es[i]=t.value;});});
+  $("#xcancel").addEventListener("click",function(){if(confirm("Batalkan ujian? Jawabanmu tidak akan disimpan.")){exStop();go(6);}});
+  $("#xsub").addEventListener("click",function(){
+    var un=EX.ans.filter(function(a){return a<0;}).length;
+    if(un&&!confirm(un+" soal pilihan ganda belum dijawab. Tetap kumpulkan?"))return;
+    submitExam(false);
+  });
+}
+function submitExam(auto){
+  if(!EX.on)return;
+  var left=EX.left;exStop();
+  var sc=0;EX.ans.forEach(function(a,i){if(a>=0&&EX.perm[i][a]===XQ[i][2])sc++;});
+  EX.pg=sc;EX.used=EX.total-Math.max(0,left);
+  swap(function(){renderExamResult(auto);},1);
+}
+function calcFinal(){
+  var pgp=EX.pg/XQ.length*100,tot=0,max=0;
+  XE.forEach(function(e,i){max+=e.pts.length;tot+=$$(".xrub"+i+":checked").length;});
+  var ep=max?tot/max*100:0,fin=Math.round(pgp*.7+ep*.3);
+  return {pgp:pgp,ep:ep,fin:fin};
+}
+function renderExamResult(auto){
+  var h='<div class="view" id="xres"><div class="m-no" style="color:var(--cy)">LAPORAN SIMULASI UTS</div>'+
+  (auto?'<p style="color:var(--rd)">Waktu habis. Jawaban dikumpulkan otomatis.</p>':'')+
+  '<div class="panel cut frame cy res" id="xsum"></div>'+
+  '<h3 class="sec-t">BAGIAN A: PEMBAHASAN</h3>';
+  XQ.forEach(function(q,i){
+    var a=EX.ans[i],ci=EX.perm[i].indexOf(q[2]),ok=a===ci;
+    h+='<div class="xq panel cut frame '+(ok?'':'mg')+'"><div class="tag" style="color:var(--'+(ok?'gn':'rd')+')">SOAL '+(i+1)+' // '+(a<0?'TIDAK DIJAWAB':ok?'BENAR':'SALAH')+'</div><p class="xqt">'+q[0]+'</p>'+
+    EX.perm[i].map(function(oi,k){return '<div class="opt rv2'+(k===ci?' ok':k===a?' no':'')+'"><span class="k">'+"ABCD"[k]+'</span><span>'+q[1][oi]+'</span></div>';}).join("")+
+    '<div class="fb on"><b>Pembahasan:</b> '+q[3]+'</div></div>';
+  });
+  h+='<h3 class="sec-t">BAGIAN B: NILAI ESAI SENDIRI</h3><p class="mut" style="font-size:.88rem">Bandingkan jawabanmu dengan kunci, lalu centang poin rubrik yang sudah kamu penuhi. Nilai akhir diperbarui otomatis.</p>';
+  XE.forEach(function(e,i){
+    h+='<div class="xq panel cut frame mg"><div class="tag" style="color:var(--mg)">ESAI '+(i+1)+' // '+e.m.toUpperCase()+'</div><p class="xqt">'+e.q+'</p>'+
+    '<div class="tag" style="margin-top:8px">JAWABANMU</div><div class="xmine">'+(EX.es[i]&&EX.es[i].trim()?E(EX.es[i]):'<span class="mut">(kosong)</span>')+'</div>'+
+    '<div class="tag" style="margin-top:12px">RUBRIK (CENTANG YANG TERPENUHI)</div>'+
+    e.pts.map(function(p,k){return '<label class="rub"><input type="checkbox" class="xrub'+i+'" id="xr'+i+'_'+k+'"><span>'+p+'</span></label>';}).join("")+
+    '<details class="dt" style="margin-top:12px"><summary>Lihat jawaban model</summary><div class="dtb"><p>'+e.a+'</p></div></details></div>';
+  });
+  h+='<div class="m-foot"><button type="button" class="btn" id="xagain">Ulangi simulasi</button><button type="button" class="btn ghost" id="xmod">Belajar modul</button></div></div>';
+  $("#view").innerHTML=h;
+  function upd(){
+    var c=calcFinal(),pass=c.fin>=60;
+    var g=c.fin>=85?"A":c.fin>=70?"B":c.fin>=60?"C":c.fin>=45?"D":"E";
+    var el=$("#xsum");el.className="panel cut frame "+(pass?'cy':'mg')+" res "+(pass?'pass':'fail');
+    el.innerHTML='<div class="tag">'+(pass?'EVALUASI SELESAI':'EVALUASI GAGAL')+'</div><h2 class="orb">'+(pass?'MISSION PASSED':'MISSION FAILED')+'</h2>'+
+    '<div class="score">'+c.fin+' <span style="font-size:.4em;color:var(--mu)">/ 100 // NILAI '+g+'</span></div>'+
+    '<p>Pilihan ganda: <b>'+EX.pg+'/'+XQ.length+'</b> ('+Math.round(c.pgp)+'%) &middot; Esai (nilai sendiri): <b>'+Math.round(c.ep)+'%</b> &middot; Waktu terpakai: <b>'+fmt(EX.used)+'</b></p>';
+    if(c.fin>(S.xbest||0)){S.xbest=c.fin;save();}
+  }
+  $$(".rub input").forEach(function(c){c.addEventListener("change",function(){SFX.click();upd();});});
+  upd();
+  pass0()?SFX.win():SFX.lose();
+  function pass0(){return calcFinal().fin>=60;}
+  $("#xagain").addEventListener("click",function(){SFX.click();startExam();});
+  $("#xmod").addEventListener("click",function(){SFX.click();go(0);});
+}
+
+/* ---------- kuis ---------- */
+var Q=[
+{q:"Ayat kauniyah merujuk pada...",o:["Teks Al-Quran yang dibaca","Hadis yang diriwayatkan sahabat","Tanda-tanda Allah di alam semesta","Fatwa para ulama"],a:2,e:"Ayat kauniyah adalah tanda kebesaran Allah yang terbentang di alam. Teks Al-Quran disebut ayat qauliyah."},
+{q:"Menurut Islam, IPTEKS sebagai hasil akal sebaiknya...",o:["Dibimbing wahyu agar tidak merusak","Dibiarkan bebas tanpa batas nilai","Dihentikan karena berbahaya","Dipisahkan dari urusan agama"],a:0,e:"Akal dijunjung tinggi, tetapi arah dan batas etikanya datang dari wahyu."},
+{q:"Dalam paradigma Tauhid, hubungan wahyu, filsafat, dan sains adalah...",o:["Saling bertentangan","Wahyu menghapus sains","Sains menggantikan wahyu","Saling melengkapi"],a:3,e:"Wahyu bersifat absolut, filsafat rasional, sains empiris. Ketiganya melengkapi dalam satu paradigma."},
+{q:"Ungkapan \"ilmu tanpa iman buta, iman tanpa ilmu lemah\" menegaskan bahwa...",o:["Iman lebih penting daripada akhlak","Iman, ilmu, dan akhlak satu kesatuan","Ilmu cukup tanpa iman","Akhlak tidak terkait ilmu"],a:1,e:"Iman dan ilmu harus bersatu, dan akhlak menjadi buah dari keduanya."},
+{q:"Manakah yang BUKAN termasuk lima tujuan Maqashid as-Syariah?",o:["Menjaga agama","Menjaga akal","Menjaga kekuasaan","Menjaga harta"],a:2,e:"Lima tujuannya: agama, jiwa, akal, keturunan, harta. Kekuasaan tidak termasuk."}
+];
+
+/* ---------- boot ---------- */
+var LOG=[
+ ["[ OK ] OMAHCODING core online","c"],
+ ["[ OK ] memuat kernel NEURAL-LMS v2.077","g"],
+ ["[ OK ] mengaktifkan mesin render HUD","g"],
+ ["[ OK ] memasang modul ilmu: qauliyah, kauniyah","g"],
+ ["[ OK ] sinkronisasi akal <-> wahyu","g"],
+ ["[WARN] 5 modul menunggu dibaca","w"],
+ ["[ OK ] memuat bank soal System Test","g"],
+ ["[ OK ] kalibrasi System Test","g"],
+ ["[WARN] pengaman akal aktif: wahyu sebagai kompas","w"],
+ ["[ >> ] otorisasi pengguna... DITERIMA","c"]
+];
+var booted=false;
+function boot(){
+  var log=$("#bootlog"),bar=$("#bootbar"),pct=$("#bootpct"),msg=$("#bootmsg"),p=0,li=0,start=null,dur=RED?400:6800;
+  function frame(ts){
+    if(!start)start=ts;
+    var t=Math.min(1,(ts-start)/dur);p=Math.floor(t*100);
+    bar.style.width=p+"%";pct.textContent=p+"%";pct.setAttribute("data-t",p+"%");
+    var want=Math.min(LOG.length,Math.floor(t*(LOG.length+.6)));
+    while(li<want){var L=LOG[li++];var s=document.createElement("div");if(L[1]==="w")s.className="w";if(L[1]==="c")s.className="c";s.textContent=L[0];log.appendChild(s);SFX.boot();}
+    if(t<1)requestAnimationFrame(frame);else done();
+  }
+  function done(){
+    msg.textContent="AKSES DIBUKA";msg.style.color="var(--gn)";
+    var B=$("#boot"),L=$("#landing");
+    if(RED){B.classList.add("open");L.classList.add("in");setTimeout(function(){B.style.display="none";},60);return;}
+    setTimeout(function(){B.classList.add("flash");SFX.ok();},350);
+    setTimeout(function(){B.classList.add("seam");},650);
+    setTimeout(function(){B.classList.add("open");L.classList.add("in");SFX.boot();},1300);
+    setTimeout(function(){B.style.display="none";},2700);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ---------- dashboard ---------- */
+var cur=0,QS=null;
+function persist(){save();}
+function renderSide(){
+  var h='<div class="side-h">// DAFTAR MODUL</div>';
+  M.forEach(function(m,i){
+    var d=S.read.indexOf(i)>=0;
+    h+='<button type="button" class="nv'+(d?' done':'')+(cur===i?' on':'')+'" id="nv'+i+'" data-i="'+i+'"><span class="n">0'+(i+1)+'</span><span class="t">'+m.t+'</span><span class="st">'+(d?'SELESAI':'BARU')+'</span></button>';
+  });
+  h+='<button type="button" class="nv q'+(cur===5?' on':'')+'" id="nvq" data-i="5"><span class="n">&gt;&gt;</span><span class="t">SYSTEM TEST<br><span class="mut" style="font-size:.75rem">5 soal pilihan ganda</span></span></button>';
+  h+='<button type="button" class="nv x'+(cur===6?' on':'')+'" id="nvx" data-i="6"><span class="n">&gt;&gt;</span><span class="t">SIMULASI UTS<br><span class="mut" style="font-size:.75rem">45 menit, 20 PG + 3 esai</span></span></button>';
+  h+='<div class="side-f">SKOR KUIS: <span id="best" style="color:var(--yl)">'+S.best+'/5</span> // SIMULASI: <span style="color:var(--yl)">'+(S.xbest||0)+'</span></div>';
+  $("#side").innerHTML=h;
+  $$(".nv").forEach(function(b){b.addEventListener("click",function(){SFX.click();go(+b.dataset.i);closeMenu();});});
+}
+function renderProg(){
+  var n=S.read.length;
+  $("#pgt").textContent=n+"/5";
+  $$("#seg i").forEach(function(el,i){el.classList.toggle("on",S.read.indexOf(i)>=0);});
+}
+function wipe(){var w=$("#wipe");w.classList.remove("run");void w.offsetWidth;w.classList.add("run");}
+function swap(paint,dir){
+  var v=$("#view");
+  if(RED){paint();return;}
+  v.style.setProperty("--dx",(dir>=0?44:-44)+"px");
+  var el=v.firstElementChild;
+  if(el){el.style.transition="opacity .22s,transform .22s,filter .22s";el.style.opacity="0";el.style.transform="translateX("+(dir>=0?-34:34)+"px) skewX("+(dir>=0?6:-6)+"deg)";el.style.filter="blur(4px) hue-rotate(80deg)";}
+  wipe();
+  setTimeout(paint,300);
+}
+function go(i,instant){
+  if(EX.on&&i!==6){if(!confirm("Ujian sedang berjalan. Keluar akan membatalkan ujian. Lanjutkan?"))return;exStop();}
+  var dir=i>=cur?1:-1;
+  if(!instant&&i===cur)dir=1;
+  cur=i;renderSide();
+  function paint(){
+    if(i<5)viewModule(i);else if(i===5)viewQuizIntro();else viewExamIntro();
+    $("#main").scrollTo({top:0,behavior:"auto"});
+  }
+  if(instant){paint();return;}
+  swap(paint,dir);
+}
+function viewModule(i){
+  var m=M[i],d=S.read.indexOf(i)>=0;
+  $("#view").innerHTML='<div class="view"><div class="m-no">MODUL 0'+(i+1)+' / 05</div><h1 class="m-h">'+m.t+'</h1><p class="m-sub">'+m.s+'</p>'+m.h()+(m.x||'')+
+   '<div class="m-foot"><button type="button" class="btn'+(d?' ghost':'')+'" id="mk">'+(d?'Selesai dibaca':'Tandai selesai')+'</button><span class="read-ok" id="rok">'+(d?'DATA TERSINKRON':'')+'</span>'+
+   '<button type="button" class="btn ghost" id="nx">'+(i<4?'Modul berikutnya':'Ke System Test')+'</button></div></div>';
+  m.bind();
+  $("#mk").addEventListener("click",function(){
+    var k=S.read.indexOf(i);
+    if(k<0){S.read.push(i);SFX.ok();}else{S.read.splice(k,1);SFX.click();}
+    persist();renderProg();renderSide();
+    var on=S.read.indexOf(i)>=0;this.textContent=on?"Selesai dibaca":"Tandai selesai";this.classList.toggle("ghost",on);$("#rok").textContent=on?"DATA TERSINKRON":"";
+  });
+  $("#nx").addEventListener("click",function(){SFX.click();go(i<4?i+1:5);});
+}
+function viewQuizIntro(){
+  var n=S.read.length;
+  $("#view").innerHTML='<div class="view"><div class="m-no" style="color:var(--mg)">SYSTEM TEST</div><h1 class="m-h" style="color:var(--mg);text-shadow:0 0 12px rgba(255,42,109,.6)">Uji Pemahaman</h1>'+
+   '<p class="m-sub">5 soal pilihan ganda dari kelima modul. Lulus dengan minimal 3 jawaban benar.</p>'+
+   '<div class="panel cut frame mg"><div class="tag" style="color:var(--mg)">STATUS KESIAPAN</div><p style="margin:8px 0 0">Modul dibaca: <b>'+n+' dari 5</b>. '+(n<5?'Kamu boleh mulai sekarang, tetapi membaca semua modul dulu menaikkan peluang lulus.':'Semua modul sudah dibaca. Sistem siap diuji.')+'</p></div>'+
+   '<div class="m-foot"><button type="button" class="btn" id="qgo">Mulai test</button></div></div>';
+  $("#qgo").addEventListener("click",function(){SFX.click();startQuiz();});
+}
+function startQuiz(){swap(function(){QS={i:0,sc:0,res:[],lock:false};renderQ();},1);}
+function renderQ(){
+  var q=Q[QS.i];
+  var bar='<div class="qbar">'+Q.map(function(_,k){return '<i class="'+(QS.res[k]===1?'ok':QS.res[k]===0?'no':k===QS.i?'on':'')+'"></i>';}).join("")+'</div>';
+  var L="ABCD";
+  $("#view").innerHTML='<div class="view" id="qv"><div class="m-no" style="color:var(--mg)">SOAL 0'+(QS.i+1)+' / 05</div>'+bar+'<h2 class="q-t">'+q.q+'</h2>'+
+   q.o.map(function(t,k){return '<button type="button" class="opt" id="op'+k+'" data-k="'+k+'"><span class="k">'+L[k]+'</span><span>'+t+'</span></button>';}).join("")+
+   '<div class="fb" id="fb"></div><div class="m-foot" style="border:0;justify-content:flex-end"><button type="button" class="btn" id="qn" style="display:none">'+(QS.i<Q.length-1?'Soal berikutnya':'Lihat hasil')+'</button></div></div>';
+  $$(".opt").forEach(function(b){b.addEventListener("click",function(){answer(+b.dataset.k);});});
+  $("#qn").addEventListener("click",function(){SFX.click();if(QS.i<Q.length-1){swap(function(){QS.i++;renderQ();},1);}else result();});
+}
+function answer(k){
+  if(QS.lock)return;QS.lock=true;
+  var q=Q[QS.i],ok=k===q.a;
+  $$(".opt").forEach(function(b){b.disabled=true;});
+  $("#op"+k).classList.add(ok?"ok":"no");
+  if(!ok)$("#op"+q.a).classList.add("ok");
+  if(ok){QS.sc++;SFX.ok();}else{SFX.no();$("#qv").classList.remove("shake");void $("#qv").offsetWidth;$("#qv").classList.add("shake");}
+  QS.res[QS.i]=ok?1:0;
+  var fb=$("#fb");fb.innerHTML='<b>'+(ok?'AKSES DITERIMA':'AKSES DITOLAK')+'</b> '+q.e;fb.classList.add("on");
+  $$(".qbar i")[QS.i].className=ok?"ok":"no";
+  $("#qn").style.display="inline-block";QS.lock=false;
+}
+function result(){
+  var pass=QS.sc>=3;
+  if(QS.sc>S.best){S.best=QS.sc;persist();}
+  swap(function(){resultPaint(pass);pass?SFX.win():SFX.lose();},1);
+}
+function resultPaint(pass){
+  $("#view").innerHTML='<div class="view"><div class="panel cut frame '+(pass?'cy':'mg')+' res '+(pass?'pass':'fail')+'"><div class="tag">'+(pass?'EVALUASI SELESAI':'EVALUASI GAGAL')+'</div>'+
+   '<h2 class="orb gl" data-t="'+(pass?'MISSION PASSED':'MISSION FAILED')+'">'+(pass?'MISSION PASSED':'MISSION FAILED')+'</h2>'+
+   '<div class="score">'+QS.sc+' / '+Q.length+'</div>'+
+   '<p>'+(pass?'Pemahamanmu pada materi Islam dan IPTEK memenuhi standar sistem.':'Skor di bawah ambang 3 dari 5. Baca ulang modul yang masih lemah, lalu coba lagi.')+'</p>'+
+   '<div class="m-foot" style="justify-content:center;border:0"><button type="button" class="btn" id="qre">Ulangi test</button><button type="button" class="btn ghost" id="qmod">Kembali ke modul</button></div></div></div>';
+  renderSide();
+  $("#qre").addEventListener("click",function(){SFX.click();startQuiz();});
+  $("#qmod").addEventListener("click",function(){SFX.click();go(0);});
+}
+
+/* ---------- menu & mute ---------- */
+function closeMenu(){$("#side").classList.remove("open");$("#menu").setAttribute("aria-expanded","false");}
+$("#menu").addEventListener("click",function(){var o=$("#side").classList.toggle("open");this.setAttribute("aria-expanded",o?"true":"false");SFX.click();});
+function muteUI(){var b=$("#mute");b.textContent=S.mute?"SFX OFF":"SFX ON";b.setAttribute("aria-pressed",S.mute?"true":"false");}
+$("#mute").addEventListener("click",function(){S.mute=!S.mute;save();muteUI();if(!S.mute)SFX.click();});
+muteUI();
+
+/* ---------- masuk ---------- */
+$("#enter").addEventListener("click",function(){
+  SFX.ok();
+  var l=$("#landing");l.classList.add("out");
+  var app=$("#app");app.classList.add("on");
+  if(!RED){app.classList.add("enter");setTimeout(function(){app.classList.remove("enter");},2200);}
+  renderProg();go(0,true);
+  if(!RED)setTimeout(wipe,150);
+  setTimeout(function(){l.style.display="none";},RED?20:800);
+});
+renderProg();
+boot();
+})();
+</script>
+</body>
+</html>
